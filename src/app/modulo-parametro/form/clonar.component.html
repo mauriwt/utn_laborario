@@ -1,0 +1,124 @@
+<!-- <div id="content">
+  <wt-shuyai *ngIf="cargando || boxLoad"></wt-shuyai>
+  <article class="col-sm-12 col-md-12 col-lg-12">
+    <sa-widget [editbutton]="false" [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+      [custombutton]="false" [collapsed]="false" [sortable]="false">
+      <header>
+        <span class="widget-icon">
+          <i class="fa fa-lg fa-files-o"></i>
+        </span>
+        <h2>Clonación parcial de datos</h2>
+      </header>
+      <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-7">
+          <div class="widget-body" *ngIf="!cargando">
+            <div class="row">
+              <form id="frmClon" novalidate="novalidate" [formGroup]="formulario" #form>
+                <div class="col-lg-12">
+                  <div class="well">
+                    <fieldset *ngIf="pSelecionado.length > 0 && codigos.length > 0 ">
+                      <div class="col-lg-12">
+                        <a class="btn btn-primary" (click)="confirmar()">
+                          <b>Clonar datos</b>
+                        </a>
+                      </div>
+                    </fieldset>
+                    <hr class="simple">
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="col-lg-4 text-left">
+                          <b>Gerencias:
+                            <b class="text-danger"> *</b>
+                          </b>
+                        </label>
+                        <div class="col-lg-8">
+                          <ng-select #sel id="gerencia" formControlName="gerencia" [items]="gerencias" bindLabel="cadValorDetalle" bindValue="cadId"
+                            placeholder="Seleccione una gerencia" (change)="setGerencia($event)">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="col-lg-4 text-left">
+                          <b>Direcciones:
+                            <b class="text-danger"> *</b>
+                          </b>
+                        </label>
+                        <div class="col-lg-8">
+                          <ng-select id="direccion" formControlName="direccion" [items]="direccionesTmp" bindLabel="cadValorDetalle" bindValue="cadId"
+                            placeholder="Seleccione una dirección" (change)="setDireccion($event)">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="col-lg-4 text-left">
+                          <b>Personas:
+                            <b class="text-danger"> *</b>
+                          </b>
+                        </label>
+                        <div class="col-lg-8">
+                          <ng-select id="persona" formControlName="persona" [items]="personas" bindLabel="nombre" bindValue="pecCodigo" placeholder="Seleccione un biométrico"
+                            (change)="addPersona($event)">
+                          </ng-select>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <fieldset>
+                    <table class="table table-stripped table-hover">
+                      <caption class="text-center">
+                        <b>Biométricos</b>
+                      </caption>
+                      <thead>
+                        <tr>
+                          <th>Dirección IP</th>
+                          <th>Nombre</th>
+                          <th>Ubicación</th>
+                          <th>
+                            <input type='checkbox' name='showhide' (change)="seleccionar($event)">
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let s of biometricos; let i = index">
+                          <td>{{s.bioDireccionIp}}</td>
+                          <td>{{s.bioNombre}}</td>
+                          <td>{{s.bioUbicacion}}</td>
+                          <td>
+                            <input type="checkbox" name="check" id='check_{{i}}' (change)="getItem(s.bioCodigo)" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+          </div>
+        </article>
+        <article *ngIf="pSelecionado.length > 0" class="col-sm-12 col-md-12 col-lg-5">
+          <sa-widget [editbutton]="false" [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+            [custombutton]="false" [collapsed]="false" [sortable]="false">
+            <header>
+              <span class="widget-icon">
+                <i class="fa fa-lg fa-users"></i>
+              </span>
+              <h2>Personas a ser clonadas</h2>
+            </header>
+            <div class="widget-body">
+              <div class="custom-scroll table-responsive">
+                <ul>
+                  <li *ngFor="let h of pSelecionado">
+                    <a class="fa fa-trash" (click)="removePersona(h.pecCodigo)"></a> {{h.nombre}}</li>
+                </ul>
+              </div>
+            </div>
+          </sa-widget>
+        </article>
+      </div>
+    </sa-widget>
+  </article>
+</div> -->
