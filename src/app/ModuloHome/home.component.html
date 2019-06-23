@@ -1,0 +1,112 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Inicio']" icon="home"
+                            class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="well">
+                <h1>Bienvenido</h1>
+                <em>a la rama de prueba</em>
+                <button class="btn btn-primary" (click)="open('myModal')">Open modal 1</button>
+                <button class="btn btn-primary" (click)="open('myModal2')">Open modal 2</button>
+                <!--<app-tabpersona></app-tabpersona>-->
+                <basic-wizard-widget></basic-wizard-widget>
+                <div class="row">
+                    <div class="col-lg-12">
+                            <img [src]="getUrlDoc1()" alt="Smiley face" height="42" width="42">
+                            <a
+                            [href]="getUrlDoc1()" target="_blank" class="btn btn-primary">
+                                <i class="fa fa-file-text-o"></i>
+                            </a>
+                      <form  novalidate="novalidate" class="form-horizontal">
+                        <fieldset class="smart-form">
+                          <div class="form-group">
+                            <section class="padding-form">
+                                <label class="col-lg-4 control-label text-left">Documento</label>
+                                <div class="input input-file col-lg-8" >
+                                <span class="button">
+                                    <input id="file" onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                    (change)="setArchivo($event)" type="file">
+                                    Cargar
+                                </span>
+                                <input type="text" readonly class="txtFile"/>
+                                </div>
+                            </section>
+                          </div>
+                        </fieldset>
+                        <fieldset>
+                          <div class="form-actions">
+                           <div class="pull-left">
+                             <div class="col-md-12">
+                                   <button class="btn btn-primary" type="submit" (click)="cargarArchivo()">
+                                       Guardar
+                                   </button>
+                                    <button class="btn btn-danger" type="button" (click)="modalDetalle.hide()">
+                                       Cancelar
+                                   </button>
+                             </div>
+                           </div>
+                           <div style="clear:both"></div>
+                         </div>
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+
+                <div class="typeHead">
+                    <input type="text" list="countries" name="country" [(ngModel)]='selected' (change)="selectCountryName(selected)" />
+                    <datalist id="countries">
+                        <select>
+                            <option *ngFor="let c of countrylist" [value]="c.name"></option>
+                        </select>
+                    </datalist>
+                </div>
+                <div id="chartContainer" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+                
+            </div>
+        </div>
+    </div>          
+    
+</div>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal1 content-->
+    <div class="modal-content">
+      <div class="modal-header" style="padding:35px 50px;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+      </div>
+      <div class="modal-body" style="padding:40px 50px;">
+        <h1>MODAL 1</h1>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="close('myModal')">Close modal</button>
+      </div>
+    </div>
+    
+  </div>
+</div> 
+
+<div class="modal fade" id="myModal2" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal2 content-->
+    <div class="modal-content">
+      <div class="modal-header" style="padding:35px 50px;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+      </div>
+      <div class="modal-body" style="padding:40px 50px;">
+        <h1>MODAL 2</h1>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="close('myModal2')">Close modal</button>
+      </div>
+    </div>
+    
+  </div>
+</div> 

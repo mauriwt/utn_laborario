@@ -1,0 +1,10 @@
+.cal-click{
+    width: 50%;
+    float: right;
+}
+
+.cal-form{
+    width: 50%;
+    padding: 10px;
+    display: inline-block;
+}

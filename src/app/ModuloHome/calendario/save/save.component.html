@@ -1,0 +1,143 @@
+<div id="content">
+  <wt-shuyai *ngIf="insertar"></wt-shuyai>
+  <div class="widget-body">
+    <div class="row">
+      <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <div class="pull-left header-button">
+          <a (click)="draw()" class="btn btn-primary btn-sm">
+            <b>Guardar</b>
+          </a>
+          <a routerLink="/configuracion" class="btn btn-danger btn-sm">
+            <b>Cancelar</b>
+          </a>
+        </div>
+        <h3 class="txt-center">
+          <b>Calendario de días no laborables</b>
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="content">
+  <sa-widgets-grid>
+    <div class="widget-body">
+      <div id="calendar-buttons">
+        <div class="btn-group">
+          <a (click)="prev()" class="btn btn-default btn-xs">
+            <i class="fa fa-chevron-left"></i> Anterior
+          </a>
+          <a (click)="next()" class="btn btn-default btn-xs">
+            Siguiente
+            <i class="fa fa-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+      <div id="calendar"></div>
+    </div>
+  </sa-widgets-grid>
+</div>
+<div id="modalD" bsModal #modalD="bs-modal" id="modalFuncionario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+  [config]="{backdrop: 'static',  keyboard: false}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="reset()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Describa</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <form id="frmComision" class="form-horizontal">
+              <fieldset>
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Descripción:
+                    <b class="text-danger">*</b>
+                  </label>
+                  <div class="col-lg-8">
+                    <input [(ngModel)]="descripcion" id="desc" type="text" class="form-control" name="desc">
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <div class="form-actions">
+                  <div class="pull-left">
+                    <div class="col-md-12">
+                      <button class="btn btn-primary" (click)="diasNoLab()">
+                        Guardar
+                      </button>
+                      <button class="btn btn-danger" type="button" (click)="reset()">
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                  <div style="clear:both"></div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="anio" bsModal #modalAno="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="back()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Nuevo calendario</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <form id="frmCal" #form [saBootstrapValidator]="validarCal()" novalidate="novalidate" (submitEvent)="crearAnio($event)" class="form-horizontal">
+              <fieldset>
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Año:
+                    <b class="text-danger">*</b>
+                  </label>
+                  <div class="col-lg-8">
+                    <input [(ngModel)]="calendario.cabAnio" id="cabAnio" type="text" class="form-control" name="cabAnio" required>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <div class="form-group">
+                  <label class="col-lg-4 control-label">Nombre descriptivo:
+                    <b class="text-danger">*</b>
+                  </label>
+                  <div class="col-lg-8">
+                    <input [(ngModel)]="calendario.cabDescripcion" id="cabDescripcion" type="text" class="form-control" name="cabDescripcion"
+                      required>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div class="form-actions">
+                  <div class="pull-left">
+                    <div class="col-md-12">
+                      <button class="btn btn-primary" type="submit">
+                        Guardar
+                      </button>
+                      <button class="btn btn-danger" type="button" (click)="back()">
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                  <div style="clear:both"></div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div id="content">
+  <wt-shuyai *ngIf="cargando"></wt-shuyai>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-xs-12">
+        <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+          [custombutton]="false" [collapsed]="false" [sortable]="false">
+          <header>
+            <h2>
+              <strong> {{verificador ? 'Editar registro':'Nuevo registro'}}</strong>
+            </h2>
+          </header>
+          <div class="widget-body">
+            <div class="row">
+              <article class="col-xs-12">
+                <div class="widget-body" *ngIf="!cargando">
+                  <form #f id="frmBio" [formGroup]="formulario">
+                    <fieldset>
+                      <div class="form-group">
+                        <label for="codigo" class="col-lg-4 text-left">
+                          <b>Código:
+                            <b class="text text-danger">*</b>
+                          </b>
+                        </label>
+                        <div class="col-lg-8">
+                          <input id="codigo" type="text" class="form-control" formControlName="codigo" placeholder="Ingrese el codigo del biométrico"
+                            [(ngModel)]="aplicacion.appCodigo">
+                          <app-msg [condicion]="formulario.controls['codigo'].errors?.pattern && !formulario.controls['codigo'].pristine" [msg]="'El campo solo permite número y letras.'"></app-msg>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <div class="form-group">
+                        <label for="nombre" class="col-lg-4 text-left">
+                          <b>Nombre de la aplicación:
+                            <b class="text text-danger">*</b>
+                          </b>
+                        </label>
+                        <div class="col-lg-8">
+                          <input id="nombre" type="text" class="form-control" formControlName="nombre" placeholder="Ingrese la ubicación del biométrico"
+                            [(ngModel)]="aplicacion.appNombre">
+                          <app-msg [condicion]="formulario.controls['nombre'].errors?.pattern && !formulario.controls['nombre'].pristine" [msg]="'El campo solo permite número y letras.'"></app-msg>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <fieldset>
+                      <div class="form-group">
+                        <label for="referencia" class="col-lg-4 text-left">
+                          <b>Aplicación de referencia:
+                          </b>
+                        </label>
+                        <div class="col-lg-8">
+                          <input id="referencia" type="text" class="form-control" formControlName="referencia" placeholder="Ingrese la referencia del biométrico"
+                            [(ngModel)]="aplicacion.appNombreReferencia">
+                          <app-msg [condicion]="formulario.controls['referencia'].errors?.pattern && !formulario.controls['referencia'].pristine" [msg]="'El campo solo permite número y letras.'"></app-msg>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <br>
+                    <a class="btn btn-danger" (click)="cancelar()">Cancelar</a>
+                    <button class="btn btn-primary" (click)="confirmar()" [disabled]="!formulario.valid">Guardar</button>
+                  </form>
+                </div>
+              </article>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

@@ -1,0 +1,140 @@
+<!-- widget div-->
+<div>
+
+  <!-- widget content -->
+  <div class="widget-body">
+
+    <div class="row">
+      <form novalidate="novalidate">
+        <div class="col-sm-12">
+          <div class="form-bootstrapWizard clearfix">
+            <ul class="bootstrapWizard">
+              <li *ngFor="let pane of steps; let i = index" [class.active]="activeStep == pane">
+                <a (click)="setActiveStep(pane)"> <span class="step">
+                    <span *ngIf="!pane.checked">{{i + 1}}</span>
+                    <i class="fa fa-check" *ngIf="pane.checked"></i>
+                  </span> <span class="title">{{pane.title}}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-sm-12">
+                <ul class="pager wizard no-margin">
+                  <li class="previous">
+                    <a (click)="prevStep()" [class.disabled]="steps.indexOf(activeStep) == 0" class="btn btn-lg btn-default">
+                      Previous
+                    </a>
+                  </li>
+                  <li class="next">
+                    <a (click)="nextStep()" [class.disabled]="activeStep.submitted && !activeStep.valid" class="btn btn-lg txt-color-darken">
+                      Next
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane" [class.active]="activeStep.key == 'step1'">
+              <br>
+
+              <h3><strong>Step 1 </strong> - Basic Information</h3>
+
+              <div class="row">
+
+                <div class="col-sm-12">
+                  <div class="form-group" [ngClass]="{
+                      'has-success':email.valid && activeStep.submitted,
+                      'has-error':!email.valid && activeStep.submitted
+                      }">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+                      <input class="form-control input-lg" placeholder="email@address.com" type="email" name="email"
+                        #email="ngModel" required [(ngModel)]="model.email">
+                    </div>
+                    <span [class.hidden]="email.valid || !activeStep.submitted" class="help-block">
+                      We need your email address to contact you
+                    </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group" [ngClass]="{
+                      'has-success':firstname.valid && activeStep.submitted,
+                      'has-error':!firstname.valid && activeStep.submitted
+                      }">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+                      <input class="form-control input-lg" placeholder="First Name" type="text" name="firstname"
+                        #firstname="ngModel" required [(ngModel)]="model.firstname">
+                    </div>
+                    <span [class.hidden]="firstname.valid || !activeStep.submitted" class="help-block">
+                      Please specify your First name
+                    </span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group" [ngClass]="{
+                      'has-success':lastname.valid && activeStep.submitted,
+                      'has-error':!lastname.valid && activeStep.submitted
+                      }">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+                      <input class="form-control input-lg" placeholder="Last Name" type="text" name="lastname"
+                        #lastname="ngModel" required [(ngModel)]="model.lastname">
+                    </div>
+                    <span [class.hidden]="lastname.valid || !activeStep.submitted" class="help-block">
+                      Please specify your Last name
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="tab-pane" [class.active]="activeStep.key == 'step2'">
+              <br>
+
+              <h3><strong>Step 2</strong> - Billing Information</h3>
+              <app-save [activo]="si" *ngIf="si"></app-save>
+            </div>
+            <div class="tab-pane" [class.active]="activeStep.key == 'step3'">
+              <br>
+
+              <h3><strong>Step 3</strong> - Domain Setup</h3>
+
+              <alert type="info" dismissible="true">
+                <i class="fa-fw fa fa-info"></i>
+                <strong>Info!</strong> Place an info message box if you wish.
+              </alert>
+              <div class="form-group">
+                <label>This is a label</label>
+                <input class="form-control input-lg" placeholder="Another input box here..." type="text" name="etc" id="etc">
+              </div>
+            </div>
+            <div class="tab-pane" [class.active]="activeStep.key == 'step4'">
+              <br>
+
+              <h3><strong>Step 4</strong> - Save Form</h3>
+              <br>
+
+              <h1 class="text-center text-success"><strong><i class="fa fa-check fa-lg"></i> Complete</strong></h1>
+              <h4 class="text-center">Click next to finish</h4>
+              <br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <!-- end widget content -->
+
+</div>
+<!-- end widget div -->
