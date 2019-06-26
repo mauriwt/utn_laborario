@@ -32,10 +32,10 @@ export class ObservableService {
     }
 
     public getUrlServicioPost(servicio: string, objeto: any) {
-        console.log(ObservableService.headersJSON);
-        
+        console.log( JSON.stringify(objeto), { headers: ObservableService.headersJSON});
         return this.http.post(servicio,
-            JSON.stringify(objeto), { headers: ObservableService.headersJSON , withCredentials: this.credentials})
+            
+            JSON.stringify(objeto), { headers: ObservableService.headersJSON})
             .map(response => {
                 if(response.text() ==  "")
                     return "";
@@ -46,7 +46,7 @@ export class ObservableService {
 
     public getUrlServicioPut(servicio: string, objeto: any) {
         return this.http.put(servicio,
-            JSON.stringify(objeto), { headers: ObservableService.headersJSON ,  withCredentials: this.credentials})
+            JSON.stringify(objeto), { headers: ObservableService.headersJSON})
             .map(response => {
                 if(response.text() ==  "")
                     return "";

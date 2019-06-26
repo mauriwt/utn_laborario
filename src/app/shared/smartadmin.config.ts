@@ -34,13 +34,7 @@ export const config: any = {
           add: "/rest-cactivo/add",
           delete: "/rest-cactivo/deleted",
           update: "/rest-cactivo/updated",
-      },
-      catelectricos: {
-        list: "/cambiorest/list",
-        add: "/cambiorest/add",
-        delete: "/cambiorest/deleted",
-        update: "/cambiorest/updated",
-    },
+      }
   },
 
   defaultLocale: "es",
