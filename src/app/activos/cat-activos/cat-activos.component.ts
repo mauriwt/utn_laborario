@@ -22,7 +22,7 @@ export class CatActivosComponent implements OnInit {
   ngOnInit() {
     this.getAplicaciones();
   }
-
+ 
   getAplicaciones() {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.catactivos.list}`).subscribe(response => {

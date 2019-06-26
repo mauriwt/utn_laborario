@@ -1,3 +1,55 @@
-<p>
-  activos works!
-</p>
+
+<div id="content">
+  <wt-shuyai *ngIf="cargando || conectar"></wt-shuyai>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-xs-12">
+        <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+          [custombutton]="false" [collapsed]="false" [sortable]="false">
+          <header>
+            <h2>
+              <strong>Lista de datos</strong>
+            </h2>
+          </header>
+          <div class="widget-body">
+            <div class="text-center">
+              <div class="pull-left header-button">
+                <a class="btn btn-primary" (click)="go()">Nuevo</a>
+              </div>
+              <h3>Aplicaciones</h3>
+            </div>
+            <div *ngIf="!cargando">
+              <table class="table table-stripped table-hover">
+                <thead>
+                  <tr>
+                    <th class="acciones">Acciones</th>
+                    <th>Categoria</th>
+                    <th>Nombre</th>
+                    <th>Serie</th>
+                    <th>Codigo utn</th>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Descripcios</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let s of parametros; let i = index">
+                    <td>
+                      <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s.appCodigo)"></a>
+                    </td>
+                    <td>{{s.id_categoria_ac}}</td>
+                    <td>{{s.nombre}}</td>
+                    <td>{{s.serie}}</td>
+                    <td>{{s.cod_utn}}</td>
+                    <td>{{s.estado}}</td>
+                    <td>{{s.cantidad}}</td>
+                    <td>{{s.descripcion}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>

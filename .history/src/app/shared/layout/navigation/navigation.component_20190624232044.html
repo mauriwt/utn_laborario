@@ -1,0 +1,60 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <fbg-login-info></fbg-login-info>
+  <!-- end user info -->
+
+  <nav>
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul saSmartMenu *ngIf="!cargandoMenu">
+      <li routerLinkActive="active">
+        <a routerLink="/home" title="Home">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Inicio'}}</span></a>
+      </li>
+        <li routerLinkActive="active">
+          <a routerLink="/activos" title="Activos">
+            <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Activos'}}</span></a>
+        </li>
+        <li routerLinkActive="active" *ngFor="let item of menu">
+          <a [title]="item.nombre">
+            <i class="fa fa-lg fa-fw fa-{{item.icono}}"></i> <span class="menu-item-parent">{{item.nombre}}</span>
+          </a>
+        </li>
+        <div class="nested-menu">
+          <a class="list-group-item" (click)="addExpandClass('pages')">
+              <i class="fa fa-plus"></i>&nbsp;
+              <span>{{ 'Menu'}}</span>
+          </a>
+          <li class="nested" [class.expand]="showMenu === 'pages'">
+              <ul class="submenu">
+                  <li>
+                      <a href="javascript:void(0)">
+                          <i class="fa fa-monument"></i>&nbsp;
+                          <span>{{ 'Submenu'}</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0)">
+                          <i class="fa fa-monument"></i>&nbsp;
+                          <span>{{ 'Submenu'}}</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0)">
+                          <i class="fa fa-monument"></i>&nbsp;
+                          <span>{{ 'Submenu'}}</span>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+      </div>
+      </ul>
+  </nav>
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>
