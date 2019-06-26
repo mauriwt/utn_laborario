@@ -20,9 +20,9 @@ export const config: any = {
        
         catactivos: {
           list: "/rest-cactivo/list",
-          add: "/rest-cactivos/add",
-          delete: "/rest-cactivos/deleted",
-          update: "/rest-cactivos/updated",
+          add: "/rest-cactivo/add",
+          delete: "/rest-cactivo/deleted",
+          update: "/rest-cactivo/updated",
       } 
   },
 
