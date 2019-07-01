@@ -3,12 +3,19 @@ import { CommonModule } from '@angular/common';
 import { UbActivoComponent } from './ub-activo/ub-activo.component';
 import { UbElectricosComponent } from './ub-electricos/ub-electricos.component';
 import { UbOrdenadorComponent } from './ub-ordenador/ub-ordenador.component';
-import { UbOrdenadorFromComponent } from './ub-ordenador-from/ub-ordenador-from.component';
-
+import { ubicacionRouting} from './ubicacion.routing';
+import { ObservableService, CRUDService, AlertasService } from 'app/providers';
+import { SmartadminModule } from 'app/shared/smartadmin.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ubicacionRouting,
+    FormsModule,
+    ReactiveFormsModule,
+    SmartadminModule
   ],
-  declarations: [UbActivoComponent, UbElectricosComponent, UbOrdenadorComponent, UbOrdenadorFromComponent]
+  declarations: [UbActivoComponent, UbElectricosComponent, UbOrdenadorComponent],
+  providers: [ObservableService, CRUDService, AlertasService]
 })
 export class UbicacionModule { }

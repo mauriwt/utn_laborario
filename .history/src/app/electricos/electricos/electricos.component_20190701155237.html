@@ -1,0 +1,158 @@
+
+<div id="content">
+  <wt-shuyai *ngIf="cargando || conectar"></wt-shuyai>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-xs-12">
+        <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+          [custombutton]="false" [collapsed]="false" [sortable]="false">
+          <header>
+            <h2>
+              <strong>Lista de datos</strong>
+            </h2>
+          </header>
+          <div class="widget-body">
+            <div class="text-center">
+              <div class="pull-left header-button">
+                <a class="btn btn-primary" (click)="open()">Nuevo</a>
+              </div>
+              <h3>Aplicaciones</h3>
+            </div>
+            <div *ngIf="!cargando">
+              <table class="table table-stripped table-hover">
+                <thead>
+                  <tr>
+                    <th class="acciones">Acciones</th>
+                    <th>Categoria</th>
+                    <th>Nombre</th>
+                    <th>Serie</th>
+                    <th>Codigo utn</th>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Descripcios</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let s of parametros; let i = index">
+                    <td>
+                      <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s.appCodigo)"></a>
+                    </td>
+                    <td>{{s.id_categoria_ac}}</td>
+                    <td>{{s.nombre}}</td>
+                    <td>{{s.serie}}</td>
+                    <td>{{s.cod_utn}}</td>
+                    <td>{{s.estado}}</td>
+                    <td>{{s.cantidad}}</td>
+                    <td>{{s.descripcion}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+  <div id="anio" bsModal #mdeqElectricos ="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="cancelar()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">{{ eqElectricos.id_eq_electricos ? 'Editar registro' : 'Nuevo registro'}} </h4>
+        </div>
+        <div class="modal-body">
+          <wt-shuyai *ngIf="cargando"></wt-shuyai>
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="frmElectricos" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
+                class="form-horizontal">
+                <fieldset>
+                  
+                  <label class="col-lg-4 control-label">
+                    <b>Categoria Electricos:
+                      <b class="text-danger"> *</b>
+                    </b>
+                  </label>
+                  <div class="col-lg-8">
+                    <select name="Tipo1" [(ngModel)]="eqElectricos.id_cat_eq_electricos" class="form-control"
+                      required>
+                      <option *ngFor="let c of catprt" >{{c.id_cat_eq_electricos}}</option>
+                    </select>
+                  </div>
+                  
+                    </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">Nombre Electricos:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]=" eqElectricos.nombre" id="nombre" type="text" class="form-control" name="nombre" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                      <label class="col-lg-4 control-label">Serie Electricos:
+                        <b class="text-danger">*</b>
+                      </label>
+                      <div class="col-lg-8">
+                        <input [(ngModel)]=" eqElectricos.serie" id="serie" type="text" class="form-control" name="serie">
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                      <div class="form-group">
+                        <label class="col-lg-4 control-label">Codigo Utn Electricos:
+                          <b class="text-danger">*</b>
+                        </label>
+                        <div class="col-lg-8">
+                          <input [(ngModel)]=" eqElectricos.cod_utn" id="cod_utn" type="text" class="form-control" name="cod_utn">
+                        </div>
+                      </div>
+                    </fieldset>
+                <fieldset>
+                    <fieldset>
+                        <div class="form-group">
+                          <label class="col-lg-4 control-label">Cantidad Electricos:
+                            <b class="text-danger">*</b>
+                          </label>
+                          <div class="col-lg-8">
+                            <input [(ngModel)]=" eqElectricos.cantidad" id="cantidad" type="number" class="form-control" name="cantidad">
+                          </div>
+                        </div>
+                      </fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">Descripción Electricos:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]=" eqElectricos.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-actions">
+                    <div class="pull-left">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit">
+                          Guardar
+                        </button>
+                        <button class="btn btn-danger" type="button" (click)="cancelar()">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

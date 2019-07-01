@@ -1,8 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
-import { ActivosComponent } from './activos/activos.component';
-import { ActivosFromComponent } from './activos-from/activos-from.component';
-import { CatActivosComponent} from './cat-activos/cat-activos.component';
-import { CatActivosFromComponent } from './cat-activos-from/cat-activos-from.component';
+import { CatElectricosComponent } from './cat-electricos/cat-electricos.component';
+import { ElectricosComponent } from './electricos/electricos.component';
 export const electricosRoutes: Routes = [
      // Estas son las sub rutas de modulo activos las cuales estarn antepuestas a la ruta principal
      // ubicada en el approuting 
@@ -10,24 +8,19 @@ export const electricosRoutes: Routes = [
     
     {
          path: '',
-        component: ActivosComponent,
+        component: ElectricosComponent,
         data: {
-            pageTitle: 'Lista de activos'
+            pageTitle: 'Lista de Equipos Electricos'
         },        
     },   
     {
         path: 'categoria',
-        component: CatActivosComponent,
+        component: CatElectricosComponent,
         data: {
-            pageTitle: 'Categoria de activos'
+            pageTitle: 'Categoria de Equipos Electricos'
         },        
-    },{
-        path: 'categoria/add',
-        component: CatActivosFromComponent,
-        data: {
-            pageTitle: 'Ingresar categora de activos'
-        },        
-    },
+    },     
+    
     
 ];
 
