@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RegPrestamo } from 'app/models';
+import {RegPrestamo } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
 
 declare var $;
@@ -18,23 +18,23 @@ export class PrestamosComponent implements OnInit {
   private base = config.APIRest.url;
   public parametros: RegPrestamo;
   public regPrestamo: RegPrestamo;
-  fecha: string;
-  hora: string;
+  fecha:string;
+  hora:string;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
-    private msj: AlertasService) { }
+     private msj:AlertasService) { }
 
   ngOnInit() {
     this.regPrestamo = new RegPrestamo();
     this.getAplicaciones();
   }
-
+ 
   getAplicaciones() {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.registroprestamo.list}`).subscribe(response => {
       this.parametros = response;
       this.cargando = false;
-    }, error => {
+    }, error =>{
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
       this.cargando = false;
     })
@@ -45,45 +45,50 @@ export class PrestamosComponent implements OnInit {
     if (this.regPrestamo.id_regpres) {
       this.save("update", `${config.APIRest.registroprestamo.update}/${this.regPrestamo.id_regpres}`);
     } else {
-      this.save("insert", config.APIRest.registroprestamo.add);
+      this.save("insert",config.APIRest.registroprestamo.add);
     }
   }
 
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();
-    let fe = new Date(this.convertirFecha(this.fecha, this.hora))
+    let fe = new Date(this.convertirFecha(this.fecha,this.hora))
     this.regPrestamo.hora_inicio_hrapr = fe.getTime();
-      console.log(this.regPrestamo)
-      this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
-        this.getAplicaciones();
-        this.cancelar();
-        this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro se guardó correctamente.</b>", "")
-      }, error => {
-        this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
-        this.cargando = false;
-      })
-     }
-  getCast(id) {
-    if (id) {
+    this.regPrestamo.hora_fin_hrpr = fe.getTime();
+
+    if(this.regPrestamo.hora_fin_hrpr<this.regPrestamo.hora_inicio_hrapr){
+    console.log('La fecha de inicio puede ser mayor que la fecha fin');}else{
+    console.log(this.regPrestamo)
+    this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
+      this.getAplicaciones();
+      this.cancelar();
+      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro se guardó correctamente.</b>", "")
+        }, error => {
+      this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
+      this.cargando = false;
+    })
+  }
+  }
+  getCast(id){
+    if(id){
       console.log(new Date(+id));
       return new Date(+id);
     }
-
+      
   }
 
-  getFila(lugar) {
+  getFila(lugar){
     this.regPrestamo = new RegPrestamo();
     this.regPrestamo = Object.assign({}, lugar)
     this.modal.show();
   }
-  cancelar() {
+  cancelar(){
     this.regPrestamo = Object.assign({}, new RegPrestamo());
     $('#frmLugar').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
 
-  open() {
+  open(){
     this.modal.show();
   }
 
@@ -108,7 +113,7 @@ export class PrestamosComponent implements OnInit {
     this.hora = e;
   }
 
-  public convertirFecha(fecha: string, hora: string) {
+  public convertirFecha(fecha: string,hora: string) {
     if (fecha && hora)
       return moment(`${fecha} ${hora}`, 'DD/MM/yyyy HH:mm').toDate();
     else if (fecha)

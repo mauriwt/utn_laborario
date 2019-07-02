@@ -54,6 +54,8 @@ export class PrestamosComponent implements OnInit {
     this.modal.hide();
     let fe = new Date(this.convertirFecha(this.fecha, this.hora))
     this.regPrestamo.hora_inicio_hrapr = fe.getTime();
+    this.regPrestamo.hora_fin_hrpr = fe.getTime();
+
       console.log(this.regPrestamo)
       this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
         this.getAplicaciones();

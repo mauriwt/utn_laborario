@@ -20,6 +20,7 @@ export class ActivosComponent implements OnInit {
   public Pactivos: Activos;
   //categoria
   public catprt: CatActivos[];
+  public tipoSelected: number;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
      private msj:AlertasService) { }
@@ -56,7 +57,7 @@ export class ActivosComponent implements OnInit {
 
   
   getNombre(idCategoria): string{
-    let categoria = this.catprt.find(cat => cat.id_categoria == idCategoria);
+    let categoria = this.catprt.find(cat => cat.id_categoria = idCategoria);
     if(categoria)
       return categoria.nombre;
     else return "No aplica";

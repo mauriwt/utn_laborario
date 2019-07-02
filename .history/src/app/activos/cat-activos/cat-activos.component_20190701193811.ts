@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CatActivos, Horario } from 'app/models';
+import {CatActivos } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
 
 declare var moment: any;
@@ -53,18 +53,17 @@ export class CatActivosComponent implements OnInit {
   }
 
   save(tipo, url) {
-   console.log( this.convertirFecha(this.fecha,this.hora))
-    /*this.cargando = true;
+    this.cargando = true;
     this.modal.hide();
     console.log(this.catActivo)
-    this.crud.save(`${this.base}${url}`, this.horario, tipo).subscribe(response => {
+    this.crud.save(`${this.base}${url}`, this.catActivo, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
       this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro se guardó correctamente.</b>", "")
     }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
-    })*/
+    })
   }
 
   getFila(cat){
@@ -85,10 +84,14 @@ export class CatActivosComponent implements OnInit {
   public setFecha(e) {
     $("#fecha").val(e).trigger('input');
     this.fecha = e;
+    this.fechatotal = this.convertirFecha(this.fecha,this.hora)
+    console.log(this.fechatotal)
   }
   public setHora(e) {
     $("#hora").val(e).trigger('input');
     this.hora = e;
+    this.fechatotal = this.convertirFecha(this.fecha,this.hora)
+    console.log(this.fechatotal)
   }
 
   public convertirFecha(fecha: string,hora: string) {

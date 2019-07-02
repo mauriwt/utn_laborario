@@ -14,12 +14,12 @@ export class ActivosComponent implements OnInit {
 
   @ViewChild('mdPactivos') modal: any;
   public cargando: boolean;
-  public cargandoCat: boolean;
   private base = config.APIRest.url;
   public parametros: Activos[];
   public Pactivos: Activos;
   //categoria
   public catprt: CatActivos[];
+  public tipoSelected: number;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
      private msj:AlertasService) { }
@@ -43,20 +43,20 @@ export class ActivosComponent implements OnInit {
    }
 
   getAplicacionesCat() {
-    this.cargandoCat = true;
+    this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.catactivos.list}`).subscribe(response => {
       this.catprt = response;
       console.log(response)
-      this.cargandoCat = false;
+      this.cargando = false;
     }, error =>{
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
-      this.cargandoCat = false;
+      this.cargando = false;
     })
   }
 
   
   getNombre(idCategoria): string{
-    let categoria = this.catprt.find(cat => cat.id_categoria == idCategoria);
+    let categoria = this.catprt.find(cat => cat.id_categoria = idCategoria);
     if(categoria)
       return categoria.nombre;
     else return "No aplica";

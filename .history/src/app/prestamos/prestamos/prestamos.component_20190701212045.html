@@ -23,20 +23,18 @@
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>
-                    <th>Categoria</th>
-                    <th>Nombre</th>
-                    <th>Descripcios</th>
-                  </tr>
+                    <th>Prestamo</th>
+                    <th>Hora</th>
+                                    </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let s of parametros; let i = index">
                     <td>
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
                     </td>
-                    <td>{{s.id_categoria}}</td>
-                    <td>{{s.nombre}}</td>
-                    <td>{{s.descripcion}}</td>
-                  </tr>
+                    <td>{{s.id_regpres}}</td>
+                    <td>{{getCast(s.hora_inicio_hrapr)}}</td>
+                   </tr>
                 </tbody>
               </table>
             </div>
@@ -45,42 +43,41 @@
       </article>
     </div>
   </sa-widgets-grid>
-  <div id="anio" bsModal #mdCatActivo="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}">
+  <div id="anio" bsModal #mdregPrestamo="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" (click)="cancelar()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">{{catActivo.id_categoria ? 'Editar registro' : 'Nuevo registro'}} </h4>
+          <h4 class="modal-title">{{regPrestamo.id_regpres ? 'Editar registro' : 'Nuevo registro'}} </h4>
         </div>
         <div class="modal-body">
           <wt-shuyai *ngIf="cargando"></wt-shuyai>
           <div class="row">
             <div class="col-lg-12">
-              <form id="frmActivo" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
+              <form id="frmLugar" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
                 class="form-horizontal">
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-lg-4 control-label">Nombre cat:
-                      <b class="text-danger">*</b>
-                    </label>
-                    <div class="col-lg-8">
-                      <input [(ngModel)]="catActivo.nombre" id="nombre" type="text" class="form-control" name="nombre" required>
+              
+                <div class=" col-xs-12">
+                  <fieldset>
+                    <div class="form-group">
+                      <label class="col-lg-4"><b>Fecha:<label class="text-danger"></label></b>
+                      </label>
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <input id="fecha" type="text" placeholder="Fecha" class="form-control datepicker disabled" (valueUpdated)="setFecha($event)"
+                            name="fecha" [value]="regPrestamo.hora_inicio_hrapr | date: 'dd/MM/yyyy'" icon="true" required [saUiDatepicker]="{
+                                      dateFormat: 'dd/mm/yy'}" notActualDate="true">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input class="form-control disabled clockpicker" smartClockpicker type="text" (valueUpdated)="setHora($event)" [value]="regPrestamo.hora_inicio_hrapr | date: 'HH:mm'"
+                              placeholder="Hora" name="hora" icon="true" required>
+                              <span class="input-group-addon time"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </fieldset>
-      
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-lg-4 control-label">Descripción cat:
-                      <b class="text-danger">*</b>
-                    </label>
-                    <div class="col-lg-8">
-                      <input [(ngModel)]="catActivo.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required>
-                    </div>
-                  </div>
-                </fieldset>
+                  </fieldset>
+                </div>
                 <fieldset>
                   <div class="form-actions">
                     <div class="pull-left">

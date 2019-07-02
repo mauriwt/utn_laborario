@@ -54,6 +54,11 @@ export class PrestamosComponent implements OnInit {
     this.modal.hide();
     let fe = new Date(this.convertirFecha(this.fecha, this.hora))
     this.regPrestamo.hora_inicio_hrapr = fe.getTime();
+    this.regPrestamo.hora_fin_hrpr = fe.getTime();
+
+    if (this.regPrestamo.hora_inicio_hrapr > this.regPrestamo.hora_fin_hrpr) {
+      console.log('La fecha de inicio puede ser mayor que la fecha fin');
+    } else {
       console.log(this.regPrestamo)
       this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
         this.getAplicaciones();
@@ -63,7 +68,8 @@ export class PrestamosComponent implements OnInit {
         this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
         this.cargando = false;
       })
-     }
+    }
+  }
   getCast(id) {
     if (id) {
       console.log(new Date(+id));

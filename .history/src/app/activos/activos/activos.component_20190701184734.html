@@ -121,8 +121,8 @@
               </div>
               <h3>Aplicaciones</h3>
             </div>
-            <div *ngIf="!cargandoCat">
-              <table fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" class="table table-stripped table-hover">
+            <div *ngIf="!cargando">
+              <table class="table table-stripped table-hover">
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>

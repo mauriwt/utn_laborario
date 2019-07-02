@@ -7,7 +7,7 @@ export class RegPrestamo{
     id_ubicacion: number;
     id_docente: number;
     hora_inicio_hrapr: number;
-    hora_fin_hrpr: number;
+    hora_fin_hrpr: Date;
  
  public static getValidators() {
     return {

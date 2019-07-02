@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { prestamosRouting} from './prestamos.routing';
+import { electricosRouting} from './electricos.routing';
 import { ObservableService, CRUDService, AlertasService } from 'app/providers';
 import { SmartadminModule } from 'app/shared/smartadmin.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PrestamosComponent } from './prestamos/prestamos.component';
+import { ElectricosComponent } from './electricos/electricos.component';
+import { CatElectricosComponent } from './cat-electricos/cat-electricos.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    prestamosRouting,
+    electricosRouting,
     FormsModule,
     ReactiveFormsModule,
     SmartadminModule
   ],
-  declarations: [PrestamosComponent],
+  declarations: [ElectricosComponent, CatElectricosComponent],
   providers: [ObservableService, CRUDService, AlertasService]
 })
-export class PrestamosModule { }
+export class ElectricosModule { }

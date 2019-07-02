@@ -27,7 +27,6 @@ export const routes: Routes = [
       {path: 'ced', loadChildren: 'app/persona/cardoces.module#CardocesModule', data:{pageTitle:'listado'},},
       {path: 'software', loadChildren: 'app/software/software.module#SoftwareModule', data:{pageTitle:'Software'},},
       {path: 'ubicacion', loadChildren: 'app/ubicacion/ubicacion.module#UbicacionModule', data:{pageTitle:'Ubicacion'},},
-      {path: 'prestamos', loadChildren: 'app/prestamos/prestamos.module#PrestamosModule', data:{pageTitle:'Prestamos'},},
       //{path: 'inventarios', loadChildren: 'app/ModuloInventario/inventario.module#InventarioModule',data:{pageTitle: 'Inventarios'}},
       {path: 'parametro', loadChildren: 'app/modulo-parametro/parametro.module#ParametroModule',data:{pageTitle: 'Parametros'},},
     ]

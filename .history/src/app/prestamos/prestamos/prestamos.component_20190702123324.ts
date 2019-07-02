@@ -54,6 +54,7 @@ export class PrestamosComponent implements OnInit {
     this.modal.hide();
     let fe = new Date(this.convertirFecha(this.fecha, this.hora))
     this.regPrestamo.hora_inicio_hrapr = fe.getTime();
+    this.regPrestamo.hora_fin_hrpr = fe.getTime();
       console.log(this.regPrestamo)
       this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
         this.getAplicaciones();
@@ -100,6 +101,10 @@ export class PrestamosComponent implements OnInit {
   }
 
   public setFecha(e) {
+    $("#fecha").val(e).trigger('input');
+    this.fecha = e;
+  }
+  public setFechafin(e) {
     $("#fecha").val(e).trigger('input');
     this.fecha = e;
   }

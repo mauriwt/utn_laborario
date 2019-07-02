@@ -80,7 +80,23 @@
                 </div>
                 
                 <div class=" col-xs-12">
-                  
+                  <fieldset>
+                    <div class="form-group">
+                      <label class="col-lg-4"><b>Fecha:<label class="text-danger"></label></b>
+                      </label>
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <input id="fecha" type="text" placeholder="Fecha" class="form-control datepicker disabled" (valueUpdated)="setFecha($event)"
+                            name="fecha" [value]="regPrestamo.hora_fin_hrpr | date: 'dd/MM/yyyy'" icon="true" required [saUiDatepicker]="{
+                                      dateFormat: 'dd/mm/yy'}" notActualDate="true">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input class="form-control disabled clockpicker" smartClockpicker type="text" (valueUpdated)="setHora($event)" [value]="regPrestamo.hora_fin_hrpr | date: 'HH:mm'"
+                              placeholder="Hora" name="hora" icon="true" required>
+                              <span class="input-group-addon time"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
                 <fieldset>
                   <div class="form-actions">
