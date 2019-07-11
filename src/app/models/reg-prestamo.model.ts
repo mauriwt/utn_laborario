@@ -16,9 +16,11 @@ export class RegPrestamo{
          notEmpty: {
             message: 'El nombre es un campo obligatorio.'
               },
+         
+              
      },
       },
-       nombre: {
+       hora_inicio_hrapr: {
             validators: {
            notEmpty: {
               message: 'El nombre es un campo obligatorio.'

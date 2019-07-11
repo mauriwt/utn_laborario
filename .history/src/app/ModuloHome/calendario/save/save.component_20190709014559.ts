@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AlertasService, GenericoService } from 'app/providers';
-import { Reservas } from 'app/models';
+import { ThCalendarioCab, ThCalendarioDet } from 'app/models';
 import { CRUDService } from 'app/providers'
 import { config } from 'app/shared/smartadmin.config';
 import { CalendarioService } from './config';
@@ -25,6 +25,11 @@ export class SaveComponent implements OnInit {
 
   private hoy: number;
   private urlbase = config.APIRest.url.local;
+  public calendario: ThCalendarioCab;
+  public detCalendarios: ThCalendarioDet[];
+  public detCalendario: ThCalendarioDet;
+  private noJobDays: ThCalendarioDet[];
+  private noJobDay: ThCalendarioDet;
   public insertar: boolean;
   public urlParam: number;
   public idTmp: number;
@@ -60,6 +65,10 @@ export class SaveComponent implements OnInit {
   ngOnInit() {
     console.log("ngOnInit", "1");
     this.hoy = new Date((new Date()).setHours(0, 0, 0, 0)).getTime();
+    this.calendario = new ThCalendarioCab();
+    this.detCalendario = new ThCalendarioDet();
+    this.detCalendarios = new Array<ThCalendarioDet>();
+    this.noJobDays = new Array<ThCalendarioDet>();
     this.descripcion;
     this.aroute.params.subscribe((params: Params) => {
       if (params['anio'])
@@ -73,8 +82,9 @@ export class SaveComponent implements OnInit {
     this.calendar = this.$calendarRef.fullCalendar({
       lang: 'es',
       header: {
-        left: 'prev,next today, month,agendaWeek,agendaDay,title',
-        },
+        left: 'prev,next today, month,agendaWeek,agendaDay,listMonth',
+        center: 'title',
+      },
       businessHours: true, // display business hours
       editable: true,
       contentHeight: 550,

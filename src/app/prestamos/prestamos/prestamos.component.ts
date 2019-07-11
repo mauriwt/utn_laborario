@@ -3,6 +3,7 @@ import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RegPrestamo } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
+import { FormControl } from '@angular/forms';
 
 declare var $;
 declare var moment;
@@ -48,12 +49,25 @@ export class PrestamosComponent implements OnInit {
       this.save("insert", config.APIRest.registroprestamo.add);
     }
   }
+  ctrl = new FormControl('', (control: FormControl) => {
+    const value = control.value;
+    if (!value) { return null; }
+    if (value.hour <= 7) { return { tooEarly: true }; }
+    if (value.hour >= 0) {
+      if (value.minute >= 1) {
+        return { tooLate: true };
+      }
+    }
+    return null;
+  });
 
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();
     let fe = new Date(this.convertirFecha(this.fecha, this.hora))
+    let ct = new FormControl(this.ctrl)
     this.regPrestamo.hora_inicio_hrapr = fe.getTime();
+    this.regPrestamo.hora_inicio_hrapr=ct.value();
       console.log(this.regPrestamo)
       this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
         this.getAplicaciones();

@@ -34,7 +34,7 @@ export const routes: Routes = [
       {path: 'parametro', loadChildren: 'app/modulo-parametro/parametro.module#ParametroModule',data:{pageTitle: 'Parametros'},},
     ]
   },
-  { path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/ModuloAutenticacion/auth.module#AuthModule'},
+  //{ path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/ModuloAutenticacion/auth.module#AuthModule'},
   //{path: '**', redirectTo: 'auth'}
 //
 ];
