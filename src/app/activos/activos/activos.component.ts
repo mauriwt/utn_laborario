@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Activos ,CatActivos} from 'app/models';
+import { Activos, CatActivos } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
 
 declare var $;
+declare let element;
+declare let options;
+
 @Component({
   selector: 'app-activos',
   templateUrl: './activos.component.html',
@@ -22,7 +25,7 @@ export class ActivosComponent implements OnInit {
   public catprt: CatActivos[];
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
-     private msj:AlertasService) { }
+    private msj: AlertasService, private el: ElementRef) { }
   ngOnInit() {
     this.catprt = new Array<CatActivos>();
     this.parametros = new Array<Activos>();
@@ -35,12 +38,12 @@ export class ActivosComponent implements OnInit {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.activos.list}`).subscribe(response => {
       (this.parametros = response,
-      this.cargando = false);
-       }, error =>{
+        this.cargando = false);
+    }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
       this.cargando = false;
-  })
-   }
+    })
+  }
 
   getAplicacionesCat() {
     this.cargandoCat = true;
@@ -48,27 +51,37 @@ export class ActivosComponent implements OnInit {
       this.catprt = response;
       console.log(response)
       this.cargandoCat = false;
-    }, error =>{
+    }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
       this.cargandoCat = false;
     })
   }
 
-  
-  getNombre(idCategoria): string{
+
+  getNombre(idCategoria): string {
     let categoria = this.catprt.find(cat => cat.id_categoria == idCategoria);
-    if(categoria)
+    if (categoria)
       return categoria.nombre;
     else return "No aplica";
   }
-
+  getEstado(idactivo): string {
+    let Pctivos = this.parametros.find(cat => cat.id_activos == idactivo);
+    if (Pctivos) {
+      if(this.Pactivos.estado="true")
+      return "Sujeto a prestamo"
+    
+    else if (this.Pactivos.estado = "false") {
+      return "No sujeto a prestamo"
+    }}
+    else return "No aplica";
+  }
 
   saveValidar(valid) {
     if (!valid) return;
     if (this.Pactivos.id_activos) {
       this.save("update", `${config.APIRest.activos.update}/${this.Pactivos.id_activos}`);
     } else {
-      this.save("insert",config.APIRest.activos.add);
+      this.save("insert", config.APIRest.activos.add);
     }
   }
 
@@ -86,22 +99,22 @@ export class ActivosComponent implements OnInit {
     })
   }
 
-   getFila(activo){
+
+  getFila(activo) {
     this.Pactivos = new Activos();
     this.Pactivos = Object.assign({}, activo)
     this.modal.show();
   }
- 
-  cancelar(){
+
+  cancelar() {
     this.Pactivos = Object.assign({}, new Activos());
     $('#frmactivo').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
 
-  open(){
+  open() {
     this.modal.show();
   }
-
 
   getValidators() {
     return {

@@ -11,78 +11,115 @@
     -->
 
     <ul saSmartMenu *ngIf="!cargandoMenu">
-      <li routerLinkActive="active">
-        <a routerLink="/home" title="Home">
-          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Inicio'}}</span></a>
-      <li><a><i class="fa fa-lg fa-fw "></i>Activos<span class="menu-item-parent"></span></a>
-        <ul class="dropdown-header">
-          <li routerLinkActive="active">
-            <a routerLink="/activos" title="Activos">
-              <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Activos'}}</span></a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/activos/categoria" title="Categorias">
-              <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Categoria'}}</span></a>
-          </li>
-        </ul>
-      </li>
-      <li><a><i class="fa fa-lg fa-fw "></i>Electricos<span class="menu-item-parent"></span></a>
-        <ul class="dropdown-header">
-      <li routerLinkActive="active">
-        <a routerLink="/electricos" title="Electricos">
-          <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Electricos'}}</span></a>
-      </li>
-      <li routerLinkActive="active">
-        <a routerLink="/electricos/categoria" title="Categoria">
-          <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Categoria'}}</span></a>
-      </li>
-        </ul>
-      </li>
-      <li><a><i class="fa fa-lg fa-fw "></i>Espacio/Mant <span class="menu-item-parent"></span></a>
-        <ul class="dropdown-header">
-          <li routerLinkActive="active">
-            <a routerLink="/mtsp/mantenimiento" title="Esp-Mant">
-              <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Mantenimiento'}}</span></a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/mtsp/mantenimiento/tipo" title="Esp-Mant">
-              <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Tipo Mante'}}</span></a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/mtsp/espacios" title="Esp-Mant">
-              <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Espacio'}}</span></a>
-          </li>
-          <li routerLinkActive="active">
-            <a routerLink="/mtsp/espacios/tipo" title="Esp-Mant">
-              <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Tipo Espacio'}}</span></a>
-          </li>
+      
+        <li routerLinkActive="active">
+            <a routerLink="/home" title="Home" >
+                <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Inicio'}}</span></a>
+        </li>
+        <li routerLinkActive="active" *ngFor="let item of menu">
+            <a [title]="item.nombre">
+                <i class="fa fa-lg fa-fw fa-{{item.icono}}"></i> <span class="menu-item-parent">{{item.nombre}}</span>
+            </a>
+        </li>
+        <li><a *scopeCheck="['utn.fica.admin'] ['utn.fica.colaborador']"><i class="fa fa-lg fa-fw "></i>Prestamos/Reservas<span class="menu-item-parent"></span></a>
+          <ul class="dropdown">
+            <li routerLinkActive="active">
+              <a routerLink="/reservas" title="Reservas">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Reservas'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/prestamos" title="Prestamos">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Prestamos'}}</span></a>
+            </li>
+          </ul>
+        </li>
+        <li><a *scopeCheck="['utn.fica.admin']"><i class="fa fa-lg fa-fw " ></i>Activos<span class="menu-item-parent"></span></a>
+          <ul class="dropdown">
+            <li routerLinkActive="active">
+              <a routerLink="/activos" title="Activos">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Activos'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/activos/categoria" title="Categorias">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Categoria'}}</span></a>
+            </li>
+          </ul>
+        </li>
+        <li><a *scopeCheck="['utn.fica.admin']"><i class="fa fa-lg fa-fw " ></i>Electricos<span class="menu-item-parent"></span></a>
+          <ul class="dropdown">
+        <li routerLinkActive="active">
+          <a routerLink="/electricos" title="Electricos">
+            <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Electricos'}}</span></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/electricos/categoria" title="Categoria">
+            <i class="fa fa-lg fa-fw " ></i> <span class="menu-item-parent">{{'Categoria'}}</span></a>
+        </li>
+          </ul>
+        </li>
+        <li><a  *scopeCheck="['utn.fica.admin']"><i class="fa fa-lg fa-fw " ></i>Espacio/Mant <span class="menu-item-parent"></span></a>
+          <ul class="dropdown">
+            <li routerLinkActive="active">
+              <a routerLink="/mtsp/mantenimiento" title="Esp-Mant">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Mantenimiento'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/mtsp/mantenimiento/tipo" title="Esp-Mant">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Tipo Mante'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/mtsp/espacios" title="Esp-Mant">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Espacio'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/mtsp/espacios/tipo" title="Esp-Mant">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Tipo Espacio'}}</span></a>
+            </li>
+  
+          </ul>
+        </li>
+  
+        <li><a  *scopeCheck="['utn.fica.admin']"><i class="fa fa-lg fa-fw " ></i>Ingreso de Personas <span class="menu-item-parent"></span></a>
+          <ul class="dropdown">
+            <li routerLinkActive="active">
+              <a routerLink="/cdp/estudiantes" title="Estudiantes">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Estudiantes'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/cdp/docentes" title="Docentes">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Docentes'}}</span></a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="/cdp/carrera" title="Carrera">
+                <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Carrera'}}</span></a>
+            </li>
+  
+          </ul>
+        </li>
 
-        </ul>
-      </li>
 
-      <li routerLinkActive="active">
-        <a routerLink="/ordenador" title="Ordenador">
-          <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Ordenador'}}</span></a>
-      </li>
-      <li routerLinkActive="active">
-        <a routerLink="/ced" title="Persona">
-          <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Persona'}}</span></a>
-      </li>
-      <li routerLinkActive="active">
-        <a routerLink="/software" title="Software">
-          <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Software'}}</span></a>
-      </li>
-      <li routerLinkActive="active">
-        <a routerLink="/ubicacion" title="Ubicacion">
-          <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Ubicacion'}}</span></a>
-      </li>
-      <li routerLinkActive="active" *ngFor="let item of menu">
-        <a [title]="item.nombre">
-          <i class="fa fa-lg fa-fw fa-{{item.icono}}"></i> <span class="menu-item-parent">{{item.nombre}}</span>
-        </a>
-      </li>
-
-
+        <li routerLinkActive="active">
+          <a routerLink="/cdp/estudiantes" title="Persona">
+            <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Docentes/administrativo'}}</span></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/ordenador" title="Ordenador">
+            <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Ordenador'}}</span></a>
+        </li>
+      
+        <li routerLinkActive="active">
+          <a routerLink="/software" title="Software">
+            <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Software'}}</span></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/ubicacion" title="Ubicacion">
+            <i class="fa fa-lg fa-fw "></i> <span class="menu-item-parent">{{'Ubicacion'}}</span></a>
+        </li>
+        <li routerLinkActive="active" *ngFor="let item of menu">
+          <a [title]="item.nombre">
+            <i class="fa fa-lg fa-fw fa-{{item.icono}}"></i> <span class="menu-item-parent">{{item.nombre}}</span>
+          </a>
+        </li>
     </ul>
   </nav>
 

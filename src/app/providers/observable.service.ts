@@ -13,16 +13,13 @@ export class ObservableService {
     constructor(private http: Http, private alerta: AlertasService) { }
 
 
-    public setHeaders(token){
-        console.log("Setenado token : "+ token);
-        
+    public setHeaders(token){       
         let headers = { 'Content-Type': 'application/json', 'Authorization': token};
         ObservableService.headersJSON = new Headers(headers);
     }
 
     public getUrlServicioGet(servicio: string) {
-        console.log(servicio,"Ruta Node")
-        return this.http.get(servicio, {headers: ObservableService.headersJSON })
+        return this.http.get(servicio, {headers: ObservableService.headersJSON, withCredentials: this.credentials })
             .map(response => {
                 if(response.text() ==  "")
                     return "";
@@ -31,11 +28,25 @@ export class ObservableService {
             .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
     }
 
+    public getUrlServicioGetCheck(servicio: string) {
+        return this.http.get(servicio, {headers: ObservableService.headersJSON})
+            .map(response => {
+                if(response.text() ==  "")
+                    return "";
+                return response.json();
+            })
+            .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
+    }
+
+    public getUrlServicioGetObject(servicio: string) {
+        return this.http.get(servicio, {headers: ObservableService.headersJSON , withCredentials: this.credentials })
+            .map(response => response)
+            .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
+    }
+
     public getUrlServicioPost(servicio: string, objeto: any) {
-        console.log( JSON.stringify(objeto), { headers: ObservableService.headersJSON});
         return this.http.post(servicio,
-            
-            JSON.stringify(objeto), { headers: ObservableService.headersJSON})
+            JSON.stringify(objeto), { headers: ObservableService.headersJSON })
             .map(response => {
                 if(response.text() ==  "")
                     return "";
@@ -46,7 +57,7 @@ export class ObservableService {
 
     public getUrlServicioPut(servicio: string, objeto: any) {
         return this.http.put(servicio,
-            JSON.stringify(objeto), { headers: ObservableService.headersJSON})
+            JSON.stringify(objeto), { headers: ObservableService.headersJSON ,  withCredentials: this.credentials})
             .map(response => {
                 if(response.text() ==  "")
                     return "";
@@ -65,20 +76,19 @@ export class ObservableService {
             .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
     }
 
-    public getUrlServicioPostFormData(servicio: string, objeto: any) {
-        return this.http.post(servicio,
-            this.generateUrlParams(objeto), { headers: this.headersFormData, withCredentials: this.credentials })
-            .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
-    }
-
     public getUrlServicioPATCH(servicio: string) {
-        console.log(servicio);
-        return this.http.patch(servicio, { headers: ObservableService.headersJSON , withCredentials: this.credentials })
+        return this.http.patch(servicio, {}, { headers: ObservableService.headersJSON , withCredentials: this.credentials })
             .map(response => {
                 if(response.text() ==  "")
                     return "";
                 return response.json();
             })
+            .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
+    }
+
+    public getUrlServicioPostFormData(servicio: string, objeto: any) {
+        return this.http.post(servicio,
+            this.generateUrlParams(objeto), { headers: this.headersFormData, withCredentials: this.credentials })
             .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
     }
 

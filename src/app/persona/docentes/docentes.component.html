@@ -19,13 +19,16 @@
               <h3>Aplicaciones</h3>
             </div>
             <div *ngIf="!cargando">
-              <table class="table table-stripped table-hover">
+              <table paginationLength="10"  fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" 
+              class="table table-stripped table-hover">
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>
                     <th>Documento</th>
                     <th>Nombre</th>
                     <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Direccion</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,8 +37,10 @@
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
                     </td>
                     <td>{{s.documento_doc}}</td>
-                    <td>{{s.nombre_doc}}+{{s.apellido_doc}}</td>
+                    <td>{{s.nombre_doc}} {{s.apellido_doc}}</td>
                     <td>{{s.telefono_doc}}</td>
+                    <td>{{s.correo_doc}}</td>
+                    <td>{{s.direccion_doc}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -62,21 +67,61 @@
                 class="form-horizontal">
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Nombre lugar:
+                    <label class="col-lg-4 control-label">Documento Administivo:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="dOcente.nombre" id="nombre" type="text" class="form-control" name="nombre" required>
+                      <input [(ngModel)]="dOcente.documento_doc" id="nombre" type="text" class="form-control" name="documento_doc" required>
                     </div>
                   </div>
                 </fieldset>
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Descripción lugar:
+                    <label class="col-lg-4 control-label">Nombre Administrativo:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="dOcente.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required>
+                      <input [(ngModel)]="dOcente.nombre_doc" id="nombre_doc" type="text" class="form-control" name="nombre" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">Apellido Administrativo:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]="dOcente.apellido_doc" id="apelido:doc" type="text" class="form-control" name="nombre" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label"> Correo Administrativo:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]="dOcente.correo_doc" id="correo_doc" type="text" class="form-control" name="descripcion" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label"> Telefono Administrativo:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]="dOcente.telefono_doc" id="telefono_do" type="text" class="form-control" name="descripcion" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label"> Direcion Administrativo:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]="dOcente.direccion_doc" id="direccion_do" type="text" class="form-control" name="descripcion" required>
                     </div>
                   </div>
                 </fieldset>

@@ -16,7 +16,7 @@ import { TooltipModule, BsDropdownModule} from "ngx-bootstrap";
 import { RouteBreadcrumbsComponent } from './ribbon/route-breadcrumbs.component';
 import { UtilsModule } from "../utils/utils.module";
 import { AuthService } from '../../ModuloAutenticacion/providers/auth.service';
-import { ObservableService, AlertasService } from '../../providers';
+import { ObservableService, AlertasService, ObservableNodeService } from '../../providers';
 import {ShuyaiComponent,MsgComponent} from "./shuyai";
 
 
@@ -55,7 +55,7 @@ import {ShuyaiComponent,MsgComponent} from "./shuyai";
     ShuyaiComponent,
     MsgComponent,
   ],
-  providers: [AuthService,ObservableService, AlertasService]
+  providers: [AuthService,ObservableService, ObservableNodeService, AlertasService]
 })
 export class SmartadminLayoutModule{
 

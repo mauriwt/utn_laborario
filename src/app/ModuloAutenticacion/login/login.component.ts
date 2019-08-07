@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
     this.authService.refreshTokenBack()
     .subscribe(response => {
         this.router.navigate([this.authService.MAIN_PAGE]);
+        console.log(response); 
     });
   } 
 }

@@ -41,7 +41,7 @@ export class TipoEspacioComponent implements OnInit {
     if (this.tipoEspa.id_tipo) {
       this.save("update", `${config.APIRest.tipoespacio.update}/${this.tipoEspa.id_tipo}`);
     } else {
-      this.save("insert",config.APIRest.TipoEspacio.add);
+      this.save("insert",config.APIRest.tipoespacio.add);
     }
   }
 

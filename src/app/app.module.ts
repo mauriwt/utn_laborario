@@ -47,13 +47,13 @@ type StoreType = {
   ],
   imports: [ // import Angular's modules
     BrowserModule,
-    FormsModule, 
+    FormsModule,
     HttpModule,
     BrowserAnimationsModule,
     CoreModule,
+    SmartadminLayoutModule,
     
 
-    SmartadminLayoutModule,
     routing
   ],
   exports: [

@@ -27,7 +27,7 @@ export class DocentesComponent implements OnInit {
  
   getAplicaciones() {
     this.cargando = true;
-    this.crud.obtener(`${this.base}${config.APIRest.Docentes.list}`).subscribe(response => {
+    this.crud.obtener(`${this.base}${config.APIRest.docentes.list}`).subscribe(response => {
       this.parametros = response;
       this.cargando = false;
     }, error =>{
@@ -39,9 +39,9 @@ export class DocentesComponent implements OnInit {
   saveValidar(valid) {
     if (!valid) return;
     if (this.dOcente.id_docente) {
-      this.save("update", `${config.APIRest.Docentes.update}/${this.dOcente.id_docente}`);
+      this.save("update", `${config.APIRest.docentes.update}/${this.dOcente.id_docente}`);
     } else {
-      this.save("insert",config.APIRest.Docentes.add);
+      this.save("insert",config.APIRest.docentes.add);
     }
   }
 

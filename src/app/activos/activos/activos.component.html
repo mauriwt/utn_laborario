@@ -15,29 +15,30 @@
           <div class="row">
             <div class="col-lg-12">
               <form id="frmActivos" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate"
-                (submitEvent)="saveValidar($event)" class="form-horizontal">
+                (submitEvent)="saveValidar($event)">
+
                 <fieldset>
                   <label class="col-lg-4 control-label"> Categoria activo:
                     <b class="text-danger"> *</b>
                   </label>
-                  <div class="col-lg-8">
-                    <select class="select-menu" type="select" name="id_categoria_ac" id="id_categoria_ac" [(ngModel)]="Pactivos.id_categoria_ac" class="form-control" required>
-                      <option *ngFor="let c of catprt" [ngValue]="c.id_categoria">{{c.nombre}}</option>
+                  <div class="col-lg-4">
+                    <select class="select-menu" type="select" name="id_categoria_ac" id="id_categoria_ac"
+                      [(ngModel)]="Pactivos.id_categoria_ac" class="form-control" required>
+                      <option *ngFor="let c of catprt" (ngModelChange)="eventChange()" [ngValue]="c.id_categoria">{{c.nombre}}</option>
                     </select>
                   </div>
                 </fieldset>
-               
+
                 <fieldset>
-                  <div class="form-group">
-                    <label class="col-lg-4 control-label">Nombre activo:
-                      <b class="text-danger">*</b>
-                    </label>
-                    <div class="col-lg-8">
-                      <input [(ngModel)]=" Pactivos.nombre" id="nombre" type="text" class="form-control" name="nombre"
-                        required>
-                    </div>
+                  <label class="col-lg-4 control-label">Nombre activo:
+                    <b class="text-danger">*</b>
+                  </label>
+                  <div class="col-lg-4">
+                    <input [(ngModel)]=" Pactivos.nombre" id="nombre" type="text" class="form-control" name="nombre"
+                      required>
                   </div>
                 </fieldset>
+
                 <fieldset>
                   <div class="form-group">
                     <label class="col-lg-4 control-label">Serie activo:
@@ -48,6 +49,7 @@
                     </div>
                   </div>
                 </fieldset>
+
                 <fieldset>
                   <div class="form-group">
                     <label class="col-lg-4 control-label">Codigo Utn activo:
@@ -59,28 +61,44 @@
                     </div>
                   </div>
                 </fieldset>
+
                 <fieldset>
-                  <fieldset>
-                    <div class="form-group">
-                      <label class="col-lg-4 control-label">Cantidad activo:
-                        <b class="text-danger">*</b>
-                      </label>
-                      <div class="col-lg-8">
-                        <input [(ngModel)]=" Pactivos.cantidad" id="cantidad" type="number" class="form-control"
-                          name="cantidad">
-                      </div>
-                    </div>
-                  </fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Descripción activo:
+                    <label class="col-lg-4 control-label">Cantidad activo:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]=" Pactivos.descripcion" id="descripcion" type="text" class="form-control"
-                        name="descripcion" required>
+                      <input [(ngModel)]=" Pactivos.cantidad" id="cantidad" type="number" class="form-control"
+                        name="cantidad">
                     </div>
                   </div>
                 </fieldset>
+                <fieldset>
+                  <div class="input-group form-control">
+                    <label class="col-lg-4 control-label">Seleccione opcion de activo:
+                      <b class="text-danger">*</b> </label>
+                    <div>
+                      <input type="radio" name="estado" value="true" [(ngModel)]="Pactivos.estado"> <span>Activo sujeto
+                        a prestamo</span>
+                    </div>
+                    <div>
+                      <input type="radio" name="estado" value="false" [(ngModel)]="Pactivos.estado"> <span> no sujeto a
+                        prestamo</span>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-11 control-label">Descripción activo:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-12">
+                      <textarea [(ngModel)]=" Pactivos.descripcion" id="descripcion" type="textarea"
+                        class="form-control" name="descripcion" required></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+
                 <fieldset>
                   <div class="form-actions">
                     <div class="pull-left">
@@ -96,6 +114,7 @@
                     <div style="clear:both"></div>
                   </div>
                 </fieldset>
+
               </form>
             </div>
           </div>
@@ -117,15 +136,16 @@
           <div class="widget-body">
             <div class="text-center">
               <div class="pull-left header-button">
-                <a class="btn btn-primary" (click)="open()">Nuevo</a>
+                <a *scopeCheck="['utn.fica.admin']" class="btn btn-primary" (click)="open()">Nuevo</a>
               </div>
               <h3>Aplicaciones</h3>
             </div>
             <div *ngIf="!cargandoCat">
-              <table fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" class="table table-stripped table-hover">
+              <table paginationLength="10" paginationLength="10" fbg-datatable [options]="{ order: [[ 1, 'desc' ]]} "
+                paginationLength="10" pdf="Reporte" class="table table-stripped table-hover">
                 <thead>
                   <tr>
-                    <th class="acciones">Acciones</th>
+                    <th class="acciones" *scopeCheck="['utn.fica.admin']">Acciones</th>
                     <th>Categoria</th>
                     <th>Nombre</th>
                     <th>Serie</th>
@@ -137,14 +157,14 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let s of parametros; let i = index">
-                    <td>
+                    <td *scopeCheck="['utn.fica.admin']">
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
                     </td>
                     <td>{{ getNombre(s.id_categoria_ac)}}</td>
                     <td>{{s.nombre}}</td>
                     <td>{{s.serie}}</td>
                     <td>{{s.cod_utn}}</td>
-                    <td>{{s.estado}}</td>
+                    <td>{{getEstado(s.estado)}}</td>
                     <td>{{s.cantidad}}</td>
                     <td>{{s.descripcion}}</td>
                   </tr>

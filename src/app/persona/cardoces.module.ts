@@ -4,7 +4,7 @@ import { DocentesComponent } from './docentes/docentes.component';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { CarreraComponent } from './carrera/carrera.component';
 import { cardocesRouting} from './cardoces.routing';
-import { ObservableService, CRUDService, AlertasService } from 'app/providers';
+import { ObservableNodeService, CRUDService, AlertasService } from 'app/providers';
 import { SmartadminModule } from 'app/shared/smartadmin.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,6 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SmartadminModule
   ],
   declarations: [DocentesComponent, EstudiantesComponent, CarreraComponent],
-  providers: [ObservableService, CRUDService, AlertasService]
+  providers: [ObservableNodeService, CRUDService, AlertasService]
 })
 export class CardocesModule { }

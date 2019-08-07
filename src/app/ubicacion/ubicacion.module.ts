@@ -4,7 +4,7 @@ import { UbActivoComponent } from './ub-activo/ub-activo.component';
 import { UbElectricosComponent } from './ub-electricos/ub-electricos.component';
 import { UbOrdenadorComponent } from './ub-ordenador/ub-ordenador.component';
 import { ubicacionRouting} from './ubicacion.routing';
-import { ObservableService, CRUDService, AlertasService } from 'app/providers';
+import { ObservableNodeService, CRUDService, AlertasService } from 'app/providers';
 import { SmartadminModule } from 'app/shared/smartadmin.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
@@ -16,6 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SmartadminModule
   ],
   declarations: [UbActivoComponent, UbElectricosComponent, UbOrdenadorComponent],
-  providers: [ObservableService, CRUDService, AlertasService]
+  providers: [ObservableNodeService, CRUDService, AlertasService]
 })
 export class UbicacionModule { }

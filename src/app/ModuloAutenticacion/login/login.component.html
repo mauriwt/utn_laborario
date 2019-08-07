@@ -1,7 +1,7 @@
 <header id="header" class="animated fadeInDown">
   
   <div id="logo-group">
-    <img style="margin-top: 15px;max-width: 100px;" src="assets/img/logo.png" alt="YACHAY" />
+    <img style="margin-top: 15px;max-width: 100px;" src="assets/img/logo.png" alt="logo" />
   </div>
 </header>
 <div id="main" role="main" class="animated fadeInDown">
@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <h5 class="about-heading">Yachay EP</h5>
+            <h5 class="about-heading">UTN FICA CISIC&reg;</h5>
 
             <p>
               Dirección:
@@ -38,7 +38,7 @@
             </p>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <h5 class="about-heading">Dirección de Sistemas</h5>
+            <h5 class="about-heading">Departamento de Sistemas facultad FICA</h5>
 
             <p>
               Dirección:
@@ -50,15 +50,15 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4" style="padding-top:45px">
         <h5 class="text-center">- ACCESO AL SISTEMA -</h5>
-        <p>Accede a los sistemas mediante 
-          <a target="_blank" href="http://yaccounts.yachay.gob.ec">YACHAY AUTH</a>,
-           recuedar que necesitas una cuenta.</p>
+       <!--   <p>Accede a los sistemas mediante 
+        <a target="_blank" href="http://yaccounts.yachay.gob.ec">WM AUTH</a>,
+           recuerda que necesitas una cuenta.</p>-->
         <ul class="list-inline text-center">
           <li style="padding-top:25px;width: 100%" *ngIf="!procesandoToken">
             <button *ngIf="!existToken" type="button" class="btn btn-labeled btn-primary" (click)="doLogin()">
               <span class="btn-label">
                 <i class="fa fa-users"></i>
-              </span>ACCEDE MEDIANTE  YAUTH
+              </span>INGRESA AL SISTEMA
             </button>
             <button *ngIf="existToken" type="button" class="btn btn-labeled btn-primary"
              (click)="doRefresh()">
@@ -77,6 +77,9 @@
 
           <li style="padding-top:25px;width: 100%" *ngIf="procesandoToken">
             <h5><i class="fa fa-gear fa-spin"></i> Verificando datos de usuario ...</h5>
+          </li>
+          <li style="padding-top:25px;width: 100%"><span>Se recomienda <b>Google Chrome</b> para su correcto funcionamiento 
+            <img src="assets/img/chrome.png" alt="Google Chrome"/></span>
           </li>
 
         </ul>

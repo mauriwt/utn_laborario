@@ -4,17 +4,17 @@ import {SaveComponent} from "./calendario/save/save.component";
 
 export const homeRoutes: Routes = [
     {
-        path: 'home',
+        path: '',
         component: HomeComponent,
         data: {
-            pageTitle: 'Home'
+            pageTitle: 'Migracion'
         }
     },
     {
         path: '',
         component: SaveComponent,
         data: {
-            pageTitle: 'Calendario'
+            pageTitle: 'Home'
         }
     }
 ];

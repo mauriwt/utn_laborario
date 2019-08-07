@@ -4,157 +4,157 @@ export const config: any = {
   no_auth: false,
   socketUrl: "http://localhost:3000/",
   oauth: {
-    remote: environment.oauth.remote,
-    local: environment.oauth.local,
+    remote: "http://localhost:3636",
+    local: 'http://localhost:3000',
     authorize_uri: "/oauth/authorize",
     logout_full_uri: "/auth/logout",
     logout_uri: "/oauth/logout",
     login_info: "/oauth/me",
-    check_uri: "/oauth/autentication/check",
+    check_uri: "/oauth/check",
     redirect_uri: "/oauth/autentication",
-    client_id: "cliente_base"
+    client_id: "utn_laboratorio"
   },
   APIRest:
   {
-    url: environment.APIRest.url,
-    activos: {
-      list: "/rest-activos/list",
-      add: "/rest-activos/add",
-      delete: "/rest-activos/deleted",
-      update: "/rest-activos/updated",
-    },
-    carrera: {
-      list: "/rest-carrera/list",
-      add: "/rest-carrera/add",
-      delete: "/rest-carrera/deleted",
-      update: "/rest-carrera/updated",
-    },
-    catactivos: {
-      list: "/rest-cactivo/list",
-      add: "/rest-cactivo/add",
-      delete: "/rest-cactivo/deleted",
-      update: "/rest-cactivo/updated",
-    },
-    cateqelectricos: {
-      list: "/rest-categoria-eltricos/list",
-      add: "/rest-categoria-eltricos/add",
-      delete: "/rest-categoria-eltricos/deleted",
-      update: "/rest-categoria-eltricos/updated",
-    },
-    cicloacademico: {
-      list: "/rest-ciclo-academico/list",
-      add: "/rest-ciclo-academico/add",
-      delete: "/rest-ciclo-academico/deleted",
-      update: "/rest-ciclo-academico/updated",
-    },
-    docentes: {
-      list: "/rest-docentes/list",
-      add: "/rest-docentes/add",
-      delete: "/rest-docentes/deleted",
-      update: "/rest-docentes/updated",
-    },
-    espacios: {
-      list: "/rest-espacios/list",
-      add: "/rest-espacios/add",
-      delete: "/rest-espacios/deleted",
-      update: "/rest-espacios/updated",
-    },
-    eqelectricos: {
-      list: "/rest-eqelectricos/list",
-      add: "/rest-eqelectricos/add",
-      delete: "/rest-eqelectricos/deleted",
-      update: "/rest-eqelectricos/updated",
-    },
-    horario: {
-      list: "/rest-horario/list",
-      add: "/rest-horario/add",
-      delete: "/rest-horario/deleted",
-      update: "/rest-horario/updated",
-    },
-    mantenimiento: {
-      list: "/rest-mantenimiento/list",
-      add: "/rest-mantenimiento/add",
-      delete: "/rest-mantenimiento/deleted",
-      update: "/rest-mantenimiento/updated",
-    },
-    ordenadormarca: {
-      list: "/rest-marca-ordenador/list",
-      add: "/rest-marca-ordenador/add",
-      delete: "/rest-marca-ordenador/deleted",
-      update: "/rest-marca-ordenador/updated",
-    },
-    ordenador: {
-      list: "/rest-ordenador/list",
-      add: "/rest-ordenador/add",
-      delete: "/rest-ordenador/deleted",
-      update: "/rest-ordenador/updated",
-    },
-    personas: {
-      list: "/rest-personas/list",
-      add: "/rest-personas/add",
-      delete: "/rest-personas/deleted",
-      update: "/rest-personas/updated",
-    },
-    registroclase: {
-      list: "/rest-registro-clase/list",
-      add: "/rest-registro-clase/add",
-      delete: "/rest-registro-clase/deleted",
-      update: "/rest-registro-clase/updated",
-    },
-    registroprestamo: {
-      list: "/rest-registro-prestamo/list",
-      add: "/rest-registro-prestamo/add",
-      delete: "/rest-registro-prestamo/deleted",
-      update: "/rest-registro-prestamo/updated",
-    },
-    registroreservacion: {
-      list: "/rest-registro-reservacion/list",
-      add: "/rest-registro-reservacion/add",
-      delete: "/rest-registro-reservacion/deleted",
-      update: "/rest-registro-reservacion/updated",
-    },
-    reqsoftware: {
-      list: "/rest-requerimiento-software/list",
-      add: "/rest-requerimiento-software/add",
-      delete: "/rest-requerimiento-software/deleted",
-      update: "/rest-requerimiento-software/updated",
-    },
-    software: {
-      list: "/rest-software/list",
-      add: "/rest-software/add",
-      delete: "/rest-software/deleted",
-      update: "/rest-software/updated",
-    },
-    tipoespacio: {
-      list: "/rest-tipo-espacio/list",
-      add: "/rest-tipo-espacio/add",
-      delete: "/rest-tipo-espacio/deleted",
-      update: "/rest-tipo-espacio/updated",
-    },
-    tipomantenimiento: {
-      list: "/rest-tipo-mantenimiento/list",
-      add: "/rest-tipo-mantenimiento/add",
-      delete: "/rest-tipo-mantenimiento/deleted",
-      update: "/rest-tipo-mantenimiento/updated",
-    },
-    ubicacionactivo: {
-      list: "/rest-ubicacion-activo/list",
-      add: "/rest-ubicacion-activo/add",
-      delete: "/rest-ubicacion-activo/deleted",
-      update: "/rest-ubicacion-activo/updated",
-    },
-    ubicacionelectricos: {
-      list: "/rest-ubicacion-electricos/list",
-      add: "/rest-ubicacion-electricos/add",
-      delete: "/rest-ubicacion-electricos/deleted",
-      update: "/rest-ubicacion-electricos/updated",
-    },
-    ubicacionordenador: {
-      list: "/rest-ubicacion-ordenador/list",
-      add: "/rest-ubicacion-ordenador/add",
-      delete: "/rest-ubicacion-ordenador/deleted",
-      update: "/rest-ubicacion-ordenador/updated",
-    }
+        url: environment.APIRest.url,
+        activos: {
+          list: "/rest-activos/list",
+          add: "/rest-activos/add",
+          delete: "/rest-activos/deleted",
+          update: "/rest-activos/updated",
+        },
+        carrera: {
+          list: "/rest-carrera/list",
+          add: "/rest-carrera/add",
+          delete: "/rest-carrera/deleted",
+          update: "/rest-carrera/updated",
+        },
+        catactivos: {
+          list: "/rest-cactivo/list",
+          add: "/rest-cactivo/add",
+          delete: "/rest-cactivo/deleted",
+          update: "/rest-cactivo/updated",
+        },
+        cateqelectricos: {
+          list: "/rest-categoria-eltricos/list",
+          add: "/rest-categoria-eltricos/add",
+          delete: "/rest-categoria-eltricos/deleted",
+          update: "/rest-categoria-eltricos/updated",
+        },
+        cicloacademico: {
+          list: "/rest-ciclo-academico/list",
+          add: "/rest-ciclo-academico/add",
+          delete: "/rest-ciclo-academico/deleted",
+          update: "/rest-ciclo-academico/updated",
+        },
+        docentes: {
+          list: "/rest-docentes/list",
+          add: "/rest-docentes/add",
+          delete: "/rest-docentes/deleted",
+          update: "/rest-docentes/updated",
+        },
+        espacios: {
+          list: "/rest-espacios/list",
+          add: "/rest-espacios/add",
+          delete: "/rest-espacios/deleted",
+          update: "/rest-espacios/updated",
+        },
+        eqelectricos: {
+          list: "/rest-eqelectricos/list",
+          add: "/rest-eqelectricos/add",
+          delete: "/rest-eqelectricos/deleted",
+          update: "/rest-eqelectricos/updated",
+        },
+        horario: {
+          list: "/rest-horario/list",
+          add: "/rest-horario/add",
+          delete: "/rest-horario/deleted",
+          update: "/rest-horario/updated",
+        },
+        mantenimiento: {
+          list: "/rest-mantenimiento/list",
+          add: "/rest-mantenimiento/add",
+          delete: "/rest-mantenimiento/deleted",
+          update: "/rest-mantenimiento/updated",
+        },
+        ordenadormarca: {
+          list: "/rest-marca-ordenador/list",
+          add: "/rest-marca-ordenador/add",
+          delete: "/rest-marca-ordenador/deleted",
+          update: "/rest-marca-ordenador/updated",
+        },
+        ordenador: {
+          list: "/rest-ordenador/list",
+          add: "/rest-ordenador/add",
+          delete: "/rest-ordenador/deleted",
+          update: "/rest-ordenador/updated",
+        },
+        personas: {
+          list: "/rest-personas/list",
+          add: "/rest-personas/add",
+          delete: "/rest-personas/deleted",
+          update: "/rest-personas/updated",
+        },
+        registroclase: {
+          list: "/rest-registro-clase/list",
+          add: "/rest-registro-clase/add",
+          delete: "/rest-registro-clase/deleted",
+          update: "/rest-registro-clase/updated",
+        },
+        registroprestamo: {
+          list: "/rest-registro-prestamo/list",
+          add: "/rest-registro-prestamo/add",
+          delete: "/rest-registro-prestamo/deleted",
+          update: "/rest-registro-prestamo/updated",
+        },
+        registroreservacion: {
+          list: "/rest-registro-reservacion/list",
+          add: "/rest-registro-reservacion/add",
+          delete: "/rest-registro-reservacion/deleted",
+          update: "/rest-registro-reservacion/updated",
+        },
+        reqsoftware: {
+          list: "/rest-requerimiento-software/list",
+          add: "/rest-requerimiento-software/add",
+          delete: "/rest-requerimiento-software/deleted",
+          update: "/rest-requerimiento-software/updated",
+        },
+        software: {
+          list: "/rest-software/list",
+          add: "/rest-software/add",
+          delete: "/rest-software/deleted",
+          update: "/rest-software/updated",
+        },
+        tipoespacio: {
+          list: "/rest-tipo-espacio/list",
+          add: "/rest-tipo-espacio/add",
+          delete: "/rest-tipo-espacio/deleted",
+          update: "/rest-tipo-espacio/updated",
+        },
+        tipomantenimiento: {
+          list: "/rest-tipo-mantenimiento/list",
+          add: "/rest-tipo-mantenimiento/add",
+          delete: "/rest-tipo-mantenimiento/deleted",
+          update: "/rest-tipo-mantenimiento/updated",
+        },
+        ubicacionactivo: {
+          list: "/rest-ubicacion-activo/list",
+          add: "/rest-ubicacion-activo/add",
+          delete: "/rest-ubicacion-activo/deleted",
+          update: "/rest-ubicacion-activo/updated",
+        },
+        ubicacionelectricos: {
+          list: "/rest-ubicacion-electricos/list",
+          add: "/rest-ubicacion-electricos/add",
+          delete: "/rest-ubicacion-electricos/deleted",
+          update: "/rest-ubicacion-electricos/updated",
+        },
+        ubicacionordenador: {
+          list: "/rest-ubicacion-ordenador/list",
+          add: "/rest-ubicacion-ordenador/add",
+          delete: "/rest-ubicacion-ordenador/deleted",
+          update: "/rest-ubicacion-ordenador/updated",
+        }
   },
 
   defaultLocale: "es",
@@ -446,10 +446,10 @@ export const config: any = {
       history.back();
     },
     'scroll up': (): any => {
-      jQuery('html, body').animate({ scrollTop: 0 }, 100);
+      jQuery('html, body').animate({scrollTop: 0}, 100);
     },
     'scroll down': (): any => {
-      jQuery('html, body').animate({ scrollTop: jQuery(document).height() }, 100);
+      jQuery('html, body').animate({scrollTop: jQuery(document).height()}, 100);
     },
     'hide navigation': {
       type: 'layout',

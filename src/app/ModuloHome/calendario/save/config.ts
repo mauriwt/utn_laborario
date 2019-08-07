@@ -26,6 +26,29 @@ export class CalendarioService {
                 dia = 1;
             }
             if (i < primerDiaSemana || i >= last_cell) {
+            } else {
+                if (j == 6) {
+                    calendario = new ThCalendarioDet();
+                    calendario.cadFecha = this.msj.convertirFecha(`${dia}/${month}/${year}`);
+                    calendario.cadNoLaborable = true;
+                    calendario.cadDescripcion = "Sábado No Laborable";
+                    lista.push(calendario)
+                }
+                else if (j == 7) {
+                    calendario = new ThCalendarioDet();
+                    calendario.cadFecha = this.msj.convertirFecha(`${dia}/${month}/${year}`);
+                    calendario.cadNoLaborable = true;
+                    calendario.cadDescripcion = "Domingo No Laborable";
+                    lista.push(calendario)
+                    j = 0;
+                } else {
+                    calendario = new ThCalendarioDet();
+                    calendario.cadFecha = this.msj.convertirFecha(`${dia}/${month}/${year}`);
+                    calendario.cadNoLaborable = false;
+                    calendario.cadDescripcion = "";
+                    lista.push(calendario)
+                }
+                dia++;
             }
             if (i % 7 == 0) {
                 if (dia > ultimoDiaMes)

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ObservableService } from './observable.service';
+import { ObservableNodeService } from './observable.servicenode';
 
 @Injectable()
 export class CRUDService {
 
-  constructor(private servicio: ObservableService) { }
+  constructor(private servicio: ObservableNodeService) { }
 
   public obtener(rest_url) {
     return this.servicio.getUrlServicioGet(rest_url);
@@ -17,9 +17,6 @@ export class CRUDService {
   public put(rest_url, object) {
     return this.servicio.getUrlServicioPut(rest_url, object);
   }
-  public delete(rest_url) {
-    return this.servicio.getUrlServicioDelete(rest_url);
-  }
 
   public patch(rest_url) {
     return this.servicio.getUrlServicioPATCH(rest_url);
@@ -30,6 +27,11 @@ export class CRUDService {
       return this.put(rest_url, object);}
     else
       return this.post(rest_url, object);
+  }
+  
+  public delete(rest_url) {
+    return this.servicio.getUrlServicioDelete(rest_url);
+    
   }
 
 }

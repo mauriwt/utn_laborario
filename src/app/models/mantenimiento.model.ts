@@ -1,7 +1,7 @@
 export class Mantenimiento{
         id_mantenimiento:number;
-        fecha_ingreso?:Date;   
-        id_pc?:number; 
+        fecha_ingreso:number;   
+        id_pc:number; 
         id_tmant?:number;   
         id_activos?:number; 
         id_eq_electrico?:number; 
@@ -9,7 +9,7 @@ export class Mantenimiento{
         recomendacion:string;   
         m_preventivo:string;    
         m_correctivo:string;    
-        fecha_entrega:string; 
+        fecha_entrega?:number; 
 
         public static getValidators() {
                 return {

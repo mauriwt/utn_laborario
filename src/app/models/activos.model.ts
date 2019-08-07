@@ -81,22 +81,6 @@ export class Activos {
                },
             },
          },
-         estado: {
-            validators: {
-               notEmpty: {
-                  message: 'El Estado es un campo obligatorio.'
-               },
-               regexp: {
-                  regexp: /^[0-9a-zA-ZÑñáéíóúÁÉÍÓÚ ]*$/i,
-                  message: '<b>El campo solo permite letras y números.</b>'
-               },
-               stringLength: {
-                  min: 5,
-                  max: 30,
-                  message: 'El Estado debe tener de 5 a 30 carácteres.'
-               },
-            },
-         },
          cantidad: {
             validators: {
                notEmpty: {

@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { YfValidador } from '../models/index';
 import { ObservableService } from '../../providers/observable.service';
 import { config } from '../../shared/smartadmin.config';
-import { FileUploadService } from 'app/providers';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +15,7 @@ export class AuthService {
   private TOKEN_TYPE = "Bearer";
   private USERNAME = "username";
   private PRE_REFRESH_TIME = 10000;
-  public MAIN_PAGE = "/";
+  public MAIN_PAGE = "/home";
   private authorize_uri: string;
   private redirect_uri: string;
   private response_type = "code";
@@ -24,35 +23,18 @@ export class AuthService {
   private static permisos: string[];
   public static timerRefresh: any;
   public static tokenValidated:boolean;
-  public user:any;
+  public loginInfoReady:any;
 
 
   constructor(private http: ObservableService) {
-    console.log("Init auth services");
-    if(!config.oauth.local){
-      config.oauth.local = window.location.origin;
-    }
     this.redirect_uri = encodeURIComponent(`${config.oauth.local}${config.oauth.redirect_uri}`);
     this.authorize_uri = `${config.oauth.remote}${config.oauth.authorize_uri}?response_type=${this.response_type}&client_id=${config.oauth.client_id}&redirect_uri=${this.redirect_uri}`;
     let scopes = localStorage.getItem(this.SCOPES);
-    console.log(this.authorize_uri);
     AuthService.tokenValidated = false;
     if (scopes)
       AuthService.permisos = JSON.parse(scopes);
     else
       AuthService.permisos = [];
-
-  }
-
-  public getMeInfo(handler)
-  {
-    if(this.user)
-      handler(this.user);
-    else
-      this.http.getUrlServicioGet(`${config.oauth.remote}${config.oauth.login_info}`)
-      .subscribe(data => {
-        handler(data);
-      });
   }
 
   public doLogin() {
@@ -81,11 +63,9 @@ export class AuthService {
       //Refresh
       let auth = this;
       let time = (exp_date - new Date().getTime()) - this.PRE_REFRESH_TIME;
-      console.log("refresh en " + time);
       time = time ? time : 1;
       if (!AuthService.timerRefresh)
         AuthService.timerRefresh = setTimeout(() => {
-          console.log("Refrescado automatico");
           AuthService.timerRefresh = null;
           auth.refreshTokenBack().subscribe();
         }, time);
@@ -127,36 +107,31 @@ export class AuthService {
     //        -2 No hay data storage
     //        -3 Error de refresco, o de checkeo
     return new Observable<number>(observer => {
-      console.log("Verificando credeniales.");
-
       if (typeof (Storage) !== "undefined") {
         let token = localStorage.getItem(this.TOKEN);
         let refresh_token = localStorage.getItem(this.REFRESH_TOKEN);
         let exp_date = parseInt(localStorage.getItem(this.EXPIRES));
         if (token && refresh_token) {
-          console.log("TOKEN EXISTE.");
           if(new Date().getTime() + this.PRE_REFRESH_TIME > exp_date)
           {
-            console.log("TOKEN POR CADUCAR REFRESCANDO");
             this.refreshTokenBack().subscribe(response => {
+              this.loginInfoReady.next(1);
               observer.next(1);
             }, err => observer.next(-3));
           }else{
             this.setHeaders(token);
             this.checkRemoteToken()
               .subscribe(response => {
-                console.log("TOKEN VALIDO");
                 //Refresh
                 let auth = this; 
                 let time = (exp_date - new Date().getTime()) - this.PRE_REFRESH_TIME;
                 time = time ? time : 1;
-                console.log("refresh en " + time);
                 if (!AuthService.timerRefresh)
                   AuthService.timerRefresh = setTimeout(() => {
-                    console.log("Refrescado automatico");
                     AuthService.timerRefresh = null;
                     auth.refreshTokenBack().subscribe();
                   }, time);
+                this.loginInfoReady.next(1);
                 observer.next(1);
               }, err => {
                 observer.next(-3);
@@ -202,27 +177,34 @@ export class AuthService {
   public refreshTokenBack() {
     let refresh_token = localStorage.getItem(this.REFRESH_TOKEN);
     let token = localStorage.getItem(this.TOKEN);
-    return this.http.getUrlServicioPost(`${config.oauth.local}${config.oauth.redirect_uri}`, { uuid_refresh_session: refresh_token, token: token })
+    return this.http.getUrlServicioPost(`${config.oauth.local}`, { uuid_refresh_session: refresh_token, token: token })
       .map(params => {
+        console.log(params)
         this.almacenarToken(params);
         return params;
       });
   }
 
+  public getLoginInfo() {
+    if(AuthService.tokenValidated)
+      return this.http.getUrlServicioGet(`${config.oauth.remote}${config.oauth.login_info}`);
+    else
+      return new Observable<any>(observer => this.loginInfoReady = observer)
+      .switchMap(() => 
+        this.http.getUrlServicioGet(`${config.oauth.remote}${config.oauth.login_info}`));
+  }
+
   private checkRemoteToken() {
-    return this.http.getUrlServicioGet(`${config.oauth.local}${config.oauth.check_uri}`);
+    return this.http.getUrlServicioGetCheck(`${config.oauth.local}${config.oauth.check_uri}`);
   }
 
   private setHeaders(token) {
     this.http.setHeaders(`${this.TOKEN_TYPE} ${token}`);
-    FileUploadService.token = `${this.TOKEN_TYPE} ${token}`;
   }
 
   private refreshToken(refresh_token, observer) {
-    console.log("Refresing token");
     this.http.getUrlServicioPost(`${config.oauth.local}${config.oauth.redirect_uri}`, { uuid_refresh_session: refresh_token })
       .subscribe(params => {
-        console.log(params);
         this.almacenarToken(params);
         observer.next(true);
       });

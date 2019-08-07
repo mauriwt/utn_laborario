@@ -19,12 +19,13 @@
               <h3>Aplicaciones</h3>
             </div>
             <div *ngIf="!cargando">
-              <table class="table table-stripped table-hover">
+              <table paginationLength="10"  fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" 
+              class="table table-stripped table-hover">
                 <thead>
                   <tr >
                     <th class="acciones" rowspan="2">Acciones</th>
                     <th>Fecha de Ingreso</th>
-                    <th >Problema</th>
+                    <th>Problema</th>
                     <th>Recomendacion</th>
                     <th>Preventivo</th>
                     <th>Correctivo</th>
@@ -36,7 +37,7 @@
                     <td>
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
                     </td>
-                    <td>{{s.fecha_ingreso}}</td>
+                    <td>{{getCast(s.fecha_ingreso)| date : 'dd/MM/yyyy HH:mm'}}</td>
                     <td>{{s.problema}}</td>
                     <td>{{s.recomendacion}}</td>
                     <td>{{s.m_preventivo}}</td>
@@ -67,14 +68,40 @@
               <form id="frmMantenimiento" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
                 class="form-horizontal">
                 <fieldset>
-                  <div class="form-group">
-                    <label class="col-lg-4 control-label">Fecha Ingreso mantenimiento:
-                      <b class="text-danger">*</b>
-                    </label>
-                    <div class="col-lg-8">
-                      <input [(ngModel)]="mAnten.problema" id="nombre" type="text" class="form-control" name="nombre" required>
+                  <label for="">Ingrese el numero de Serie de activo a mantenimiento:</label>
+                                            
+                  <div class="">
+                        <input class="typeahead" name="typeestudiante" [(ngModel)]="selected"
+                       [typeahead]="activos"
+                    typeaheadOptionField="cod_utn"
+                    (typeaheadNoResults)="typeaheadNoResults($event)" class="form-control">
+                    <pre class="card card-block card-header mb-3" name="evalu"
+                       >{{getdatosActivo(selected)}}</pre>  
+                    </div>  
+                 </fieldset>
+                <fieldset>
+                  
+                  <!----->
+                  <div class=" col-xs-12">
+                      <fieldset>
+                        <div class="form-group">
+                          <label class="col-lg-4"><b>Fecha Ingreso mantenimiento:<label class="text-danger"></label></b>
+                          </label>
+                          <div class="col-lg-8">
+                            <div class="input-group">
+                              <input id="fecha" type="text" placeholder="Fecha" class="form-control datepicker disabled" (valueUpdated)="setFecha($event)"
+                                name="fecha" [value]="mAnten.fecha_ingreso | date: 'dd/MM/yyyy'" icon="true" required [saUiDatepicker]="{
+                                          dateFormat: 'dd/mm/yy'}" notActualDate="true">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input class="form-control disabled clockpicker" smartClockpicker type="text" (valueUpdated)="setHora($event)" [value]="mAnten.fecha_ingreso | date: 'HH:mm'"
+                                  placeholder="Hora" name="hora" icon="true" required>
+                                  <span class="input-group-addon time"><i class="fa fa-clock-o"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
                     </div>
-                  </div>
+                  <!---->
                 </fieldset>
                 <fieldset>
                   <div class="form-group">
@@ -102,7 +129,7 @@
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="mAnten.problema" id="nombre" type="text" class="form-control" name="nombre" required>
+                      <input [(ngModel)]="mAnten.m_preventivo" id="nombre" type="text" class="form-control" name="nombre" required>
                     </div>
                   </div>
                 </fieldset>
@@ -112,20 +139,11 @@
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="mAnten.problema" id="nombre" type="text" class="form-control" name="nombre" required>
+                      <input [(ngModel)]="mAnten.m_correctivo" id="nombre" type="text" class="form-control" name="nombre" required>
                     </div>
                   </div>
                 </fieldset>
-                <fieldset>
-                  <div class="form-group">
-                    <label class="col-lg-4 control-label">Fecha Salida mantenimiento:
-                      <b class="text-danger">*</b>
-                    </label>
-                    <div class="col-lg-8">
-                      <input [(ngModel)]="mAnten.problema" id="nombre" type="text" class="form-control" name="nombre" required>
-                    </div>
-                  </div>
-                </fieldset>
+               
                 <fieldset>
                   <div class="form-actions">
                     <div class="pull-left">

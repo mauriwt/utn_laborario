@@ -4,7 +4,9 @@
   <sa-widgets-grid>
     <div class="row">
       <article class="col-xs-12">
-        <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+        <sa-widget id="wid-mi-li-0"
+         [editbutton]="false"
+          [colorbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
           [custombutton]="false" [collapsed]="false" [sortable]="false">
           <header>
             <h2>
@@ -18,8 +20,9 @@
               </div>
               <h3>Aplicaciones</h3>
             </div>
-            <div *ngIf="!cargando">
-              <table class="table table-stripped table-hover">
+            <div *ngIf="!cargandotms">
+              <table paginationLength="10"  fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" 
+              class="table table-strippeds table-hover">
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>

@@ -19,7 +19,8 @@
               <h3>Aplicaciones</h3>
             </div>
             <div *ngIf="!cargando">
-              <table class="table table-stripped table-hover">
+              <table paginationLength="10"  fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" 
+              class="table table-stripped table-hover">
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>
@@ -32,6 +33,8 @@
                   <tr *ngFor="let s of parametros; let i = index">
                     <td>
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
+                      <button class="btn btn-danger" title="delete atributo"
+                      (click)="delete(catActivo)">Delete</button>
                     </td>
                     <td>{{s.id_categoria}}</td>
                     <td>{{s.nombre}}</td>

@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HorarioFromComponent } from './horario-from/horario-from.component';
-import { HorarioCalendarComponent } from './horario-calendar/horario-calendar.component';
+import { horariosRouting} from './horarios.routing';
+import { ObservableNodeService, CRUDService, AlertasService } from 'app/providers';
+import { SmartadminModule } from 'app/shared/smartadmin.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HorarioComponent } from './horario/horario.component';
 import { HorarioCalendarioComponent } from './horario-calendario/horario-calendario.component';
 
+
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    horariosRouting,
+    ReactiveFormsModule,
+    SmartadminModule
   ],
-  declarations: [HorarioFromComponent, HorarioCalendarComponent, HorarioComponent, HorarioCalendarioComponent]
+  declarations: [HorarioComponent, HorarioCalendarioComponent],
+  providers: [ObservableNodeService, CRUDService, AlertasService]
 })
 export class HorarioModule { }

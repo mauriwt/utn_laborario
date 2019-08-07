@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { electricosRouting} from './electricos.routing';
-import { ObservableService, CRUDService, AlertasService } from 'app/providers';
+import { ObservableNodeService, CRUDService, AlertasService, GenericoService } from 'app/providers';
 import { SmartadminModule } from 'app/shared/smartadmin.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ElectricosComponent } from './electricos/electricos.component';
@@ -16,6 +16,6 @@ import { CatElectricosComponent } from './cat-electricos/cat-electricos.componen
     SmartadminModule
   ],
   declarations: [ElectricosComponent, CatElectricosComponent],
-  providers: [ObservableService, CRUDService, AlertasService]
+  providers: [ObservableNodeService, CRUDService, AlertasService,GenericoService]
 })
 export class ElectricosModule { }

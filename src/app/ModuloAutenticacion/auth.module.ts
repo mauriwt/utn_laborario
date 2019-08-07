@@ -7,7 +7,7 @@ import { ErrorComponent } from './error/error.component';
 import { routing } from "./auth.routing";
 import { AuthComponent } from './auth.component';
 import { CarouselModule } from 'ngx-bootstrap';
-import { ObservableService, AlertasService } from '../providers/';
+import { ObservableNodeService, AlertasService } from '../providers/';
 
 import { AuthService } from './providers/auth.service';
 
@@ -22,6 +22,6 @@ import { UserService } from '../shared/user/user.service';
     SmartadminModule
   ],
   declarations: [LoginComponent,  AuthComponent, ErrorComponent],
-  providers: [UserService, ObservableService, AuthService, AlertasService]
+  providers: [UserService, ObservableNodeService, AuthService, AlertasService]
 })
 export class AuthModule { }

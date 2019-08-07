@@ -7,9 +7,9 @@ declare var $:any;
   selector: 'fbg-logout',
   template: `
 <div id="logout" (click)="showPopup()" class="btn-header transparent pull-right">
-        <span> <a routerlink="/auth/login" title="Sign Out" data-action="userLogout"
+        <span> <a routerlink="/auth/login" title="Cerrar sesión" data-action="userLogout"
                   data-logout-msg="Puedes mejorar la seguridad de tu salida cerrando el navegador."><i
-          class="fa fa-sign-out"></i></a> </span>
+          class="text-danger fa fa-power-off"></i></a> </span>
     </div>
   `,
   styles: []
@@ -22,13 +22,13 @@ export class LogoutOauthComponent implements OnInit {
     $.SmartMessageBox({
       title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
       content : "¿ Esta seguro de cerrar la sesión ?",
-      buttons : '[CANCELAR][CERRAR SESIÓN APP][CERRAR YAUTH]'
+      buttons : '[CANCELAR][SUSPENDER][CERRAR SESIÓN]'
 
     }, (ButtonPressed) => {
-      if (ButtonPressed == "CERRAR SESIÓN APP") {
+      if (ButtonPressed == "SUSPENDER") {
         this.logout()
       }
-      else if (ButtonPressed == "CERRAR YAUTH") {
+      else if (ButtonPressed == "CERRAR SESIÓN") {
         this.logoutFull();
       }
     });

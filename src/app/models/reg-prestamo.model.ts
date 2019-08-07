@@ -1,6 +1,5 @@
 export class RegPrestamo{
-    
-    id_regpres: number;
+     id_regpres: number;
     id_persona: number;
     id_ciclo: number;
     id_activos: number;

@@ -1,4 +1,3 @@
-import { config } from './../shared/smartadmin.config';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './providers/auth.service';
@@ -11,9 +10,6 @@ export class AuthResolver {
   }
 
   resolve(): void {
-
-    if(config.no_auth)
-      return;
 
     if(AuthService.tokenValidated)
       return;

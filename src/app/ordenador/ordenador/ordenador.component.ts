@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, } from '@angular/core';
 import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Ordenador, MarcaOrdenador } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
+import SlimSelect from 'slim-select';
 declare var $;
 @Component({
   selector: 'app-ordenador',
@@ -17,6 +18,7 @@ export class OrdenadorComponent implements OnInit {
   public parametros: Ordenador;
   public oRdenador: Ordenador;
   public marca: MarcaOrdenador;
+  data: any;
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
      private msj:AlertasService) { }
 
@@ -24,13 +26,16 @@ export class OrdenadorComponent implements OnInit {
     this.oRdenador = new Ordenador();
     this.getAplicaciones();
     this. getAplicaciones();
-  }
+
+   }
+  /** */
+      
+
+  /** */
   public lista: string[] = [
-    'Defensas',
-    'Reunioes',
-    'Capacitaciones',
-    'Eventos culturales',
-    'Jornadas Academicas'];
+    'Todo En uno',
+    'Portatil',
+    'Escritorio'];
 
   getAplicaciones() {
     this.cargando = true;
@@ -87,8 +92,8 @@ export class OrdenadorComponent implements OnInit {
     this.modal.hide();
   }
 
-  open(){
-    this.modal.show();
+  open(content){
+    this.modal.show(content, {size: 'xl'});
   }
 
 

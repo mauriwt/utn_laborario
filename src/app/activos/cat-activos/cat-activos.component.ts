@@ -53,19 +53,26 @@ export class CatActivosComponent implements OnInit {
   }
 
   save(tipo, url) {
-   console.log( this.convertirFecha(this.fecha,this.hora))
-    /*this.cargando = true;
+   this.cargando = true;
     this.modal.hide();
     console.log(this.catActivo)
-    this.crud.save(`${this.base}${url}`, this.horario, tipo).subscribe(response => {
+    this.crud.save(`${this.base}${url}`, this.catActivo, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
       this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro se guardó correctamente.</b>", "")
     }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
-    })*/
+    })
   }
+  delete(catActivo: CatActivos): void {
+    if(this.catActivo.id_categoria){
+      this.save("delete", `${config.APIRest.catactivos.deleted}/${this.catActivo.id_categoria}`);
+  } else{
+          this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
+        }
+  }
+
 
   getFila(cat){
     this.catActivo = new CatActivos();

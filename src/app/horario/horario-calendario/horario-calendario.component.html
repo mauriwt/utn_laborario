@@ -1,3 +1,61 @@
-<p>
-  horario-calendario works!
-</p>
+<div id="content">  
+
+
+
+        <wt-shuyai *ngIf="cargando || conectar"></wt-shuyai>
+        <sa-widgets-grid>
+          <div class="row">
+            <article class="col-xs-12">
+              <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false"
+                [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [collapsed]="false"
+                [sortable]="false">
+                <header>
+                  <h2>
+                    <strong>Lista de datos</strong>
+                  </h2>
+                </header>
+                <div class="widget-body">
+                  <div class="text-center">
+                    <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+                    <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
+                
+                    <h3>Aplicaciones</h3>
+                  </div>
+                  <div *ngIf="!cargando">
+                    <table paginationLength="10"  fbg-datatable [options]="{ order: [[ 1, 'desc' ]]}" pdf="Reporte" 
+                    class="table table-stripped table-hover">
+                      <thead>
+                        <tr>
+                          <th class="acciones">Acciones</th>
+                          <th>Docente</th>
+                          <th>Paralelo</th>
+                          <th>Matricula</th>
+                          <th>Dia</th>
+                          <th>Horario</th>
+                          <th>Nivel</th>
+                          <th>Aula</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let s of parametros; let i = index">
+                          <td>
+                            <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg"
+                              (click)="getFila(s.appCodigo)"></a>
+                          </td>
+                          <td>{{s.docente}}</td>
+                          <td>{{s.paralelo}}</td>
+                          <td>{{s.matricula}}</td>
+                          <td>{{s.dia}}</td>
+                          <td>{{s.horario}}</td>
+                          <td>{{s.nivel}}</td>
+                          <td>{{s.aula}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </sa-widget>
+            </article>
+          </div>
+        </sa-widgets-grid>
+    </div>      

@@ -8,10 +8,11 @@ export const activosRoutes: Routes = [
       
     
     {
-         path: '',
+         path: '' ,
         component: ActivosComponent,
         data: {
             pageTitle: 'Lista de activos'
+            
         },        
     },   
     {

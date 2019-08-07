@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { parametroRouting } from './parametro.routing';
 import { SmartadminModule } from 'app/shared/smartadmin.module';
-import { ObservableService, CRUDService, AlertasService, GenericoService } from 'app/providers';
+import { ObservableNodeService, CRUDService, AlertasService, GenericoService } from 'app/providers';
 import { ListaComponent } from './lista/lista.component';
 import { FormComponent } from './form/form.component';
 import { ClonarComponent } from './form/clonar.component';
@@ -17,6 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   declarations: [ListaComponent, FormComponent, ClonarComponent],
-  providers: [ObservableService, CRUDService, AlertasService, GenericoService]
+  providers: [ObservableNodeService, CRUDService, AlertasService, GenericoService]
 })
 export class ParametroModule { }
