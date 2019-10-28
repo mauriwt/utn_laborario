@@ -34,7 +34,7 @@ export class Software{
                     message: '<b>El campo solo permite letras y números.</b>'
                 },
                 stringLength: {
-                    min: 10,
+                    min: 3,
                     max: 100,
                     message: 'Version debe tener como minimo 10 carácteres y máximo 100.'
                 },

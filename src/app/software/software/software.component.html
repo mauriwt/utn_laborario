@@ -24,9 +24,11 @@
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>
-                    <th>Categoria</th>
                     <th>Nombre</th>
+                    <th>Version</th>
                     <th>Descripcios</th>
+                    <th>tipo de Licencia</th>
+                    <th>licencia</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,9 +36,11 @@
                     <td>
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
                     </td>
-                    <td>{{s.id_categoria}}</td>
                     <td>{{s.nombre}}</td>
+                    <td>{{s.version}}</td>
                     <td>{{s.descripcion}}</td>
+                    <td>{{s.tipo_licencia}}</td>
+                    <td>{{s.licencia}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -59,11 +63,11 @@
           <wt-shuyai *ngIf="cargando"></wt-shuyai>
           <div class="row">
             <div class="col-lg-12">
-              <form id="frmLugar" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
+              <form id="frmsoftware" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
                 class="form-horizontal">
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Nombre lugar:
+                    <label class="col-lg-4 control-label">Nombre software:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
@@ -73,14 +77,46 @@
                 </fieldset>
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Descripción lugar:
+                    <label class="col-lg-4 control-label">Version software:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="software.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required>
+                      <input [(ngModel)]="software.version" id="version" type="text" class="form-control" name="version" required>
                     </div>
                   </div>
                 </fieldset>
+                
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">Descripción software:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <textarea [(ngModel)]="software.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">tipo licencia software:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]="software.tipo_licencia" id="version" type="text" class="form-control" name="tipo_licencia" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">licencia software:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <input [(ngModel)]="software.licencia" id="licencia" type="text" class="form-control" name="licencia" required>
+                    </div>
+                  </div>
+                </fieldset>
+                
                 <fieldset>
                   <div class="form-actions">
                     <div class="pull-left">

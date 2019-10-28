@@ -43,7 +43,7 @@ export class SoftwareComponent implements OnInit {
     if (this.software.id_software) {
       this.save("update", `${config.APIRest.software.update}/${this.software.id_software}`);
     } else {
-      this.save("insert",config.APIRest.Software.add);
+      this.save("insert",config.APIRest.software.add);
     }
   }
 
@@ -61,14 +61,14 @@ export class SoftwareComponent implements OnInit {
     })
   }
 
-  getFila(lugar){
+  getFila(software){
     this.software = new Software();
-    this.software = Object.assign({}, lugar)
+    this.software = Object.assign({}, software)
     this.modal.show();
   }
   cancelar(){
     this.software = Object.assign({}, new Software());
-    $('#frmLugar').bootstrapValidator('resetForm', true);
+    $('#frmsoftware').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
 

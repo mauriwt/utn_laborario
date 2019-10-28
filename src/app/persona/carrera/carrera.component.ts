@@ -27,7 +27,7 @@ export class CarreraComponent implements OnInit {
  
   getAplicaciones() {
     this.cargando = true;
-    this.crud.obtener(`${this.base}${config.APIRest.Carrera.list}`).subscribe(response => {
+    this.crud.obtener(`${this.base}${config.APIRest.carrera.list}`).subscribe(response => {
       this.parametros = response;
       this.cargando = false;
     }, error =>{
@@ -39,9 +39,9 @@ export class CarreraComponent implements OnInit {
   saveValidar(valid) {
     if (!valid) return;
     if (this.carRera.id_carrera) {
-      this.save("update", `${config.APIRest.Carrera.update}/${this.carRera.id_carrera}`);
+      this.save("update", `${config.APIRest.carrera.update}/${this.carRera.id_carrera}`);
     } else {
-      this.save("insert",config.APIRest.Carrera.add);
+      this.save("insert",config.APIRest.carrera.add);
     }
   }
 

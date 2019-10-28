@@ -43,8 +43,8 @@ export class Personas {
                         message: 'Documento es un campo obligatorio.'
                     },
                     regexp: {
-                        regexp: /^[0-9a-zA-ZÑñáéíóúÁÉÍÓÚ ]*$/i,
-                        message: '<b>El campo solo permite letras y números.</b>'
+                        regexp: /^[0-9]*$/i,
+                        message: '<b>El campo solo permite solo números.</b>'
                     },
                     stringLength: {
                         min: 5,

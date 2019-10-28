@@ -63,22 +63,11 @@
         </div>
         <div class="modal-body">
           <wt-shuyai *ngIf="cargando"></wt-shuyai>
-          <div class="row">
-            <div class="col-lg-12">
+        
+            <div class="row">
               <form id="frmMantenimiento" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate" (submitEvent)="saveValidar($event)"
                 class="form-horizontal">
-                <fieldset>
-                  <label for="">Ingrese el numero de Serie de activo a mantenimiento:</label>
-                                            
-                  <div class="">
-                        <input class="typeahead" name="typeestudiante" [(ngModel)]="selected"
-                       [typeahead]="activos"
-                    typeaheadOptionField="cod_utn"
-                    (typeaheadNoResults)="typeaheadNoResults($event)" class="form-control">
-                    <pre class="card card-block card-header mb-3" name="evalu"
-                       >{{getdatosActivo(selected)}}</pre>  
-                    </div>  
-                 </fieldset>
+                
                 <fieldset>
                   
                   <!----->

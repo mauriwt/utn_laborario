@@ -24,7 +24,6 @@
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>
-                    <th>Categoria</th>
                     <th>Nombre</th>
                     <th>Siglas</th>
                     <th>Descripcios</th>
@@ -35,7 +34,6 @@
                     <td>
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
                     </td>
-                    <td>{{s.id_categoria}}</td>
                     <td>{{s.nombre}}</td>
                     <td>{{s.siglas}}</td>
                     <td>{{s.descripcion}}</td>
@@ -65,7 +63,7 @@
                 class="form-horizontal">
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Nombre lugar:
+                    <label class="col-lg-4 control-label">Nombre carrera
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
@@ -75,11 +73,21 @@
                 </fieldset>
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Descripción lugar:
+                    <label class="col-lg-4 control-label">Siglas carrera
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="carRera.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required>
+                      <input [(ngModel)]="carRera.siglas" id="nombre" type="text" class="form-control" name="nombre" required>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-lg-4 control-label">Descripción carrera:
+                      <b class="text-danger">*</b>
+                    </label>
+                    <div class="col-lg-8">
+                      <textarea [(ngModel)]="carRera.descripcion" id="descripcion" type="text" class="form-control" name="descripcion" required></textarea>
                     </div>
                   </div>
                 </fieldset>

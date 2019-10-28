@@ -41,7 +41,7 @@ export class EstudiantesComponent implements OnInit {
     if (this.pErsona.id_persona) {
       this.save("update", `${config.APIRest.personas.update}/${this.pErsona.id_persona}`);
     } else {
-      this.save("insert",config.APIRest.Personas.add);
+      this.save("insert",config.APIRest.personas.add);
     }
   }
 
@@ -59,14 +59,14 @@ export class EstudiantesComponent implements OnInit {
     })
   }
 
-  getFila(lugar){
+  getFila(estudiante){
     this.pErsona = new Personas();
-    this.pErsona = Object.assign({}, lugar)
+    this.pErsona = Object.assign({}, estudiante)
     this.modal.show();
   }
   cancelar(){
     this.pErsona = Object.assign({}, new Personas());
-    $('#frmLugar').bootstrapValidator('resetForm', true);
+    $('#frmestudiante').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
 
