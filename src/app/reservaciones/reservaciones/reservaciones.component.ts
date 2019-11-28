@@ -266,7 +266,7 @@ public eliminar() {
 }
 
 public delete(id: number) {
-  return this.crud.delete(`${config.APIRest.registroreservacion.delete}${this.reserva.id_regresv}`)
+  return this.crud.deleted(`${config.APIRest.registroreservacion.delete}${this.reserva.id_regresv}`)
 }
 
 save(tipo, url) {

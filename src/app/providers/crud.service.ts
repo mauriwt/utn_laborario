@@ -21,17 +21,23 @@ export class CRUDService {
   public patch(rest_url) {
     return this.servicio.getUrlServicioPATCH(rest_url);
   }
+  public deleted(rest_url) {
+    return this.servicio.getUrlServicioDelete(rest_url);
+  }
 
   public save(rest_url, object, ruta) {
     if (ruta === "update"){
       return this.put(rest_url, object);}
+
+    else if (ruta === "delete"){
+      return this.deleted(rest_url)
+      }
+
     else
       return this.post(rest_url, object);
   }
   
-  public delete(rest_url) {
-    return this.servicio.getUrlServicioDelete(rest_url);
-    
-  }
+ 
+  
 
 }

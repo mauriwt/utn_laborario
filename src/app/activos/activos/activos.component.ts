@@ -16,6 +16,9 @@ declare let options;
 export class ActivosComponent implements OnInit {
 
   @ViewChild('mdPactivos') modal: any;
+  @ViewChild('mdDeletactivos') deletedmodal: any;
+  @ViewChild('mdDetalleactivo') detallemodal: any;
+
   public cargando: boolean;
   public cargandoCat: boolean;
   private base = config.APIRest.url;
@@ -64,16 +67,13 @@ export class ActivosComponent implements OnInit {
       return categoria.nombre;
     else return "No aplica";
   }
-  getEstado(idactivo): string {
-    let Pctivos = this.parametros.find(cat => cat.id_activos == idactivo);
-    if (Pctivos) {
-      if(this.Pactivos.estado="true")
-      return "Sujeto a prestamo"
-    
-    else if (this.Pactivos.estado = "false") {
-      return "No sujeto a prestamo"
-    }}
-    else return "No aplica";
+  getEstado(estdo): string{
+    let activos = this.parametros.find(act=>act.estado == estdo);
+   if(activos.estado==true){
+     return "Sujeto a prestamo";
+   }
+    else 
+    return "No sujeto a prestamo";
   }
 
   saveValidar(valid) {
@@ -98,24 +98,46 @@ export class ActivosComponent implements OnInit {
       this.cargando = false;
     })
   }
-
-
   getFila(activo) {
     this.Pactivos = new Activos();
     this.Pactivos = Object.assign({}, activo)
     this.modal.show();
   }
-
   cancelar() {
     this.Pactivos = Object.assign({}, new Activos());
     $('#frmactivo').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
-
   open() {
     this.modal.show();
   }
+  getDetalle(activo) {
+    this.Pactivos= new Activos();
+    this.Pactivos = Object.assign({}, activo)
+    this.detallemodal.show();
+  }
+  deletValidar(valid) {
+    if (!valid) return;
+    if (this.Pactivos.id_activos) {
+      this.save("delete", `${config.APIRest.activos.delete}/${this.Pactivos.id_activos}`)
+    }
+    this.deletedmodal.hide();
+  }
 
+  deletedFila(activo) {this.Pactivos = new Activos();
+    this.Pactivos = Object.assign({}, activo)
+    this.deletedmodal.show();
+  }
+  decancelar() {
+    this.Pactivos = Object.assign({}, new Activos());
+    $('#defrmActivo').bootstrapValidator('resetForm', true);
+    this.deletedmodal.hide();
+  }
+    detacancelar() {
+      this.Pactivos = Object.assign({}, new Activos());
+      $('#defrmActivo').bootstrapValidator('resetForm', true);
+      this.detallemodal.hide();
+    }
   getValidators() {
     return {
       feedbackIcons: {

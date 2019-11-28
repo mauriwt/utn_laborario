@@ -66,7 +66,7 @@ export class ObservableNodeService {
             .catch(err => this.alerta.mostrarAlertaErrorObservable(err));
     }
 
-    public getUrlServicioDelete(servicio: string) {
+    public getUrlServicioDelete(servicio: string, ) {
         return this.http.delete(servicio, { headers: ObservableNodeService.headersJSON })
             .map(response => {
                 if(response.text() ==  "")

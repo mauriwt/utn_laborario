@@ -7,10 +7,9 @@ export class Activos {
    public descripcion?: string;
    public serie: string;
    public cod_utn: string;
-   public estado: string;
    public cantidad: string;
 
-	public estad: boolean;
+	public estado: boolean;
    public tipocategoria: any;
 
    public static getValidators() {

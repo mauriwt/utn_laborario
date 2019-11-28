@@ -15,6 +15,9 @@ import { ReservasComponent } from './reservas/reservas.component';
     registroRouting,
     SmartadminModule
   ],
+  exports:[
+    PrestamosComponent
+  ],
   declarations: [EstudiantesComponent, DocentesComponent, PrestamosComponent, ReservasComponent]
 })
 export class ModuloRegistroModule { }

@@ -11,14 +11,14 @@ export const registroRoutes: Routes = [
       
     
     {
-         path: '',
-        component: DocentesComponent,
+         path: 'presta',
+        component: PrestamosComponent,
         data: {
             pageTitle: 'Lista de Equipos registro'
         },        
     },   
     {
-        path: 'categoria',
+        path: 'estudiantes',
         component: EstudiantesComponent,
         data: {
             pageTitle: 'Categoria de Equipos registro'

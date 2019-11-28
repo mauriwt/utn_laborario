@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CatActivos, Horario } from 'app/models';
+import { CatActivos, Horario } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
 
 declare var moment: any;
@@ -14,6 +14,9 @@ declare var $;
 export class CatActivosComponent implements OnInit {
 
   @ViewChild('mdCatActivo') modal: any;
+  @ViewChild('mdDeletCatActivo') deletedmodal: any;
+  @ViewChild('mdDetalleCatActivo') detallemodal: any;
+
   public cargando: boolean;
   private base = config.APIRest.url;
   public parametros: CatActivos;
@@ -22,70 +25,94 @@ export class CatActivosComponent implements OnInit {
   fecha: string;
   hora: string;
 
-  fechatotal:Date;
+  fechatotal: Date;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
-     private msj:AlertasService) { }
+    private msj: AlertasService) { }
 
   ngOnInit() {
     this.catActivo = new CatActivos();
     this.getAplicaciones();
   }
- 
+
   getAplicaciones() {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.catactivos.list}`).subscribe(response => {
       this.parametros = response;
       this.cargando = false;
-    }, error =>{
+    }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
       this.cargando = false;
     })
   }
 
+
   saveValidar(valid) {
     if (!valid) return;
     if (this.catActivo.id_categoria) {
       this.save("update", `${config.APIRest.catactivos.update}/${this.catActivo.id_categoria}`);
-    } else {
-      this.save("insert",config.APIRest.catactivos.add);
+    }
+    else {
+      this.save("insert", config.APIRest.catactivos.add);
     }
   }
 
+
   save(tipo, url) {
-   this.cargando = true;
+    this.cargando = true;
     this.modal.hide();
     console.log(this.catActivo)
     this.crud.save(`${this.base}${url}`, this.catActivo, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
-      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro se guardó correctamente.</b>", "")
+      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>Operacion realizada correctamente.</b>", "")
     }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
     })
   }
-  delete(catActivo: CatActivos): void {
-    if(this.catActivo.id_categoria){
-      this.save("delete", `${config.APIRest.catactivos.deleted}/${this.catActivo.id_categoria}`);
-  } else{
-          this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
-        }
-  }
-
-
-  getFila(cat){
+  getFila(cat) {
     this.catActivo = new CatActivos();
     this.catActivo = Object.assign({}, cat)
     this.modal.show();
   }
-  cancelar(){
+
+  getDetalle(cat) {
+    this.catActivo = new CatActivos();
+    this.catActivo = Object.assign({}, cat)
+    this.detallemodal.show();
+  }
+  cancelar() {
     this.catActivo = Object.assign({}, new CatActivos());
     $('#frmActivo').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
 
-  open(){
+  deletValidar(valid) {
+    if (!valid) return;
+    if (this.catActivo.id_categoria) {
+      this.save("delete", `${config.APIRest.catactivos.delete}/${this.catActivo.id_categoria}`)
+    }
+    this.deletedmodal.hide();
+  }
+
+  deletedFila(cat) {
+    this.catActivo = new CatActivos()
+    this.catActivo = Object.assign({}, cat)
+    this.deletedmodal.show();
+  }
+  decancelar() {
+    this.catActivo = Object.assign({}, new CatActivos());
+    $('#defrmActivo').bootstrapValidator('resetForm', true);
+    this.deletedmodal.hide();
+  }
+  detacancelar() {
+    this.catActivo = Object.assign({}, new CatActivos());
+    $('#defrmActivo').bootstrapValidator('resetForm', true);
+    this.detallemodal.hide();
+  }
+
+  open() {
     this.modal.show();
   }
 
@@ -98,7 +125,7 @@ export class CatActivosComponent implements OnInit {
     this.hora = e;
   }
 
-  public convertirFecha(fecha: string,hora: string) {
+  public convertirFecha(fecha: string, hora: string) {
     if (fecha && hora)
       return moment(`${fecha} ${hora}`, 'DD/MM/yyyy HH:mm').toDate();
     else if (fecha)

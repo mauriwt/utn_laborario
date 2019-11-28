@@ -1,5 +1,68 @@
 <div id="content">
   <wt-shuyai *ngIf="cargando || conectar"></wt-shuyai>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-xs-12">
+        <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false"
+          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [collapsed]="false"
+          [sortable]="false">
+          <header>
+            <h2>
+              <strong>Lista de datos</strong>
+            </h2>
+          </header>
+          <div class="widget-body">
+            <div class="text-center">
+              <div class="pull-left header-button">
+                <a *scopeCheck="['utn.fica.admin']" class="btn btn-primary" (click)="open()">Nuevo</a>
+              </div>
+              <h3>Aplicaciones</h3>
+            </div>
+            <div *ngIf="!cargandoCat">
+              <table paginationLength="10" paginationLength="10" fbg-datatable [options]="{ order: [[ 1, 'desc' ]]} "
+                paginationLength="10" pdf="Reporte" class="table table-stripped table-hover">
+                <thead>
+                  <tr>
+                    <th class="acciones" *scopeCheck="['utn.fica.admin']">Acciones</th>
+                    <th>Categoria</th>
+                    <th>Nombre</th>
+                    <th>Serie</th>
+                    <th>Codigo utn</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th class="acciones">Mostrar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let s of parametros; let i = index">
+                    <td *scopeCheck="['utn.fica.admin']">
+                      <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
+
+                      &nbsp; &nbsp; &nbsp;
+                      <a placement="top" tooltip="Eliminar Categotia" class="fa fa-trash btn-danger"
+                        (click)="deletedFila(s)"></a>
+
+                    </td>
+                    <td>{{ getNombre(s.id_categoria_ac)}}</td>
+                    <td>{{s.nombre}}</td>
+                    <td>{{s.serie}}</td>
+                    <td>{{s.cod_utn}}</td>
+                    <td>{{s.cantidad}}</td>
+                    <td>{{getEstado(s.estado)}}</td> 
+                   
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </sa-widget>
+      </article>
+    </div>
+  </sa-widgets-grid>
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+  <!-- //////////////////// METODO INGRESAR/ACTUALIZAR ////////////////////////////////////-->
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+
   <div id="anio" bsModal #mdPactivos="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
     [config]="{backdrop: 'static',  keyboard: false}">
     <div class="modal-dialog">
@@ -24,7 +87,8 @@
                   <div class="col-lg-4">
                     <select class="select-menu" type="select" name="id_categoria_ac" id="id_categoria_ac"
                       [(ngModel)]="Pactivos.id_categoria_ac" class="form-control" required>
-                      <option *ngFor="let c of catprt" (ngModelChange)="eventChange()" [ngValue]="c.id_categoria">{{c.nombre}}</option>
+                      <option *ngFor="let c of catprt" (ngModelChange)="eventChange()" [ngValue]="c.id_categoria">
+                        {{c.nombre}}</option>
                     </select>
                   </div>
                 </fieldset>
@@ -122,57 +186,135 @@
       </div>
     </div>
   </div>
-  <sa-widgets-grid>
-    <div class="row">
-      <article class="col-xs-12">
-        <sa-widget id="wid-mi-li-0" [editbutton]="false" [colorbutton]="false" [togglebutton]="false"
-          [deletebutton]="false" [fullscreenbutton]="false" [custombutton]="false" [collapsed]="false"
-          [sortable]="false">
-          <header>
-            <h2>
-              <strong>Lista de datos</strong>
-            </h2>
-          </header>
-          <div class="widget-body">
-            <div class="text-center">
-              <div class="pull-left header-button">
-                <a *scopeCheck="['utn.fica.admin']" class="btn btn-primary" (click)="open()">Nuevo</a>
-              </div>
-              <h3>Aplicaciones</h3>
-            </div>
-            <div *ngIf="!cargandoCat">
-              <table paginationLength="10" paginationLength="10" fbg-datatable [options]="{ order: [[ 1, 'desc' ]]} "
-                paginationLength="10" pdf="Reporte" class="table table-stripped table-hover">
-                <thead>
-                  <tr>
-                    <th class="acciones" *scopeCheck="['utn.fica.admin']">Acciones</th>
-                    <th>Categoria</th>
-                    <th>Nombre</th>
-                    <th>Serie</th>
-                    <th>Codigo utn</th>
-                    <th>Estado</th>
-                    <th>Cantidad</th>
-                    <th>Descripcios</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let s of parametros; let i = index">
-                    <td *scopeCheck="['utn.fica.admin']">
-                      <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg" (click)="getFila(s)"></a>
-                    </td>
-                    <td>{{ getNombre(s.id_categoria_ac)}}</td>
-                    <td>{{s.nombre}}</td>
-                    <td>{{s.serie}}</td>
-                    <td>{{s.cod_utn}}</td>
-                    <td>{{getEstado(s.estado)}}</td>
-                    <td>{{s.cantidad}}</td>
-                    <td>{{s.descripcion}}</td>
-                  </tr>
-                </tbody>
-              </table>
+
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+  <!-- //////////////////// METODO ELIMINAR ////////////////////////////////////-->
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+
+  <div id="anio" bsModal #mdDeletactivos="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="decancelar()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title"> Eliminar registro </h4>
+        </div>
+        <div class="modal-body">
+          <wt-shuyai *ngIf="cargando"></wt-shuyai>
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="frmActivos" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate"
+                (submitEvent)="deletValidar($event)">
+                <fieldset>
+                  <h2>{{Pactivos.nombre}}
+
+                  </h2>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-actions">
+                    <div class="pull-left">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit">
+                          Eliminar
+                        </button>
+                        <button class="btn btn-danger" type="button" (click)="decancelar()">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                  </div>
+                </fieldset>
+
+              </form>
             </div>
           </div>
-        </sa-widget>
-      </article>
+        </div>
+      </div>
     </div>
-  </sa-widgets-grid>
+  </div>
+
+
+  <!-- //////////////////// METODO VER DETALLE ////////////////////////////////////-->
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+
+  <div id="anio" bsModal #mdDetalleactivo="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="decancelar()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title"> Detalle de Activo </h4>
+        </div>
+        <div class="modal-body">
+          <wt-shuyai *ngIf="cargando"></wt-shuyai>
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="frmActivos" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate"
+                (submitEvent)="saveValidar($event)">
+                <fieldset>
+                  <table class="table table-stripped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>{{Pactivos.nombre}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Categoria</td>
+                        <td>{{getNombre(Pactivos.id_categoria_ac)}}</td>
+                      </tr>
+
+                      <tr>
+                        <td>descripcion</td>
+                        <td>{{Pactivos.descripcion}}</td>
+                      </tr>
+                      <tr>
+                        <td>Serie</td>
+                        <td>{{Pactivos.serie}}</td>
+                      </tr>
+                      <tr>
+                        <td>Codigo Utn</td>
+                        <td>{{Pactivos.cod_utn}}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Cantidad</td>
+                        <td>{{Pactivos.cantidad}}</td>
+                      </tr>
+                      <tr>
+                        <td>Estado</td>
+                        <td>{{getEstado(Pactivos.estado)}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-actions">
+                    <div class="pull-left">
+                      <div class="col-md-12">
+
+                        <button class="btn btn-danger" type="button" (click)="detacancelar()">
+                          Cerrar
+                        </button>
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                  </div>
+                </fieldset>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

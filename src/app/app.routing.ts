@@ -8,6 +8,7 @@ import {MainLayoutComponent} from "./shared/layout/app-layouts/main-layout.compo
 import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.component";
 import {ModuleWithProviders} from "@angular/core";
 import { AuthResolver } from './ModuloAutenticacion/auth.resolve';
+import { EmptyLayoutComponent } from './shared/layout/app-layouts/empty-layout.component';
 
 
 
@@ -16,9 +17,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      {
-        path: '', redirectTo: 'reservas', pathMatch: 'full',
-      },
+      
       {path: 'home', loadChildren: 'app/ModuloHome/home.module#HomeModule',data:{pageTitle: 'Home'}, resolve: [AuthResolver] },
       // con esta ruta viene a CatActivosComponent
       {path: 'activos', loadChildren: 'app/activos/activos.module#ActivosModule', data:{pageTitle:'lista de Activos'}, resolve: [AuthResolver]},
@@ -42,7 +41,8 @@ export const routes: Routes = [
   
  // { path: 'index', loadChildren: 'app/Modulo-Registro/modulo-registro.module#ModuloRegistroModule '},
   {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/ModuloAutenticacion/auth.module#AuthModule'},
-  {path: '**', redirectTo: 'auth'}
+  {path: '**', redirectTo: 'sera'},
+  {path: 'sera', component: EmptyLayoutComponent, loadChildren: 'app/Modulo-Registro/modulo-registro.module#ModuloRegistroModule'}
 //
 ];
 
