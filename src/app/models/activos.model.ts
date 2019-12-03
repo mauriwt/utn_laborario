@@ -9,8 +9,9 @@ export class Activos {
    public cod_utn: string;
    public cantidad: string;
 
-	public estado: boolean;
+	public estado:string;
    public tipocategoria: any;
+   
 
    public static getValidators() {
 

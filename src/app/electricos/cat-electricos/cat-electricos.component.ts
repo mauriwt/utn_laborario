@@ -13,6 +13,9 @@ declare var $;
 export class CatElectricosComponent implements OnInit {
   
   @ViewChild('mdcatEqelectricos') modal: any;
+  
+  @ViewChild('mdDeletEqelectricos') deletedmodal: any;
+  @ViewChild('mdDetalleEqelectricos') detallemodal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
   public parametros: CatEqelectricos;
@@ -76,6 +79,29 @@ export class CatElectricosComponent implements OnInit {
   }
 
 
+  deletValidar(valid) {
+    if (!valid) return;
+    if (this.catEqelectricos.id_cat_eq_electricos) {
+      this.save("delete", `${config.APIRest.cateqelectricos.delete}/${this.catEqelectricos.id_cat_eq_electricos}`)
+    }
+    this.deletedmodal.hide();
+  }
+
+  deletedFila(cat) {
+    this.catEqelectricos = new CatEqelectricos();
+    this.catEqelectricos = Object.assign({}, cat);
+    this.deletedmodal.show();
+  }
+  decancelar() {
+    this.catEqelectricos = Object.assign({}, new CatEqelectricos());
+    $('#defrmActivo').bootstrapValidator('resetForm', true);
+    this.deletedmodal.hide();
+  }
+  detacancelar() {
+    this.catEqelectricos = Object.assign({}, new CatEqelectricos());
+    $('#defrmActivo').bootstrapValidator('resetForm', true);
+    this.detallemodal.hide();
+  }
   getValidators() {
     return {
       feedbackIcons: {

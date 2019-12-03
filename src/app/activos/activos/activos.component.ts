@@ -67,14 +67,17 @@ export class ActivosComponent implements OnInit {
       return categoria.nombre;
     else return "No aplica";
   }
-  getEstado(estdo): string{
-    let activos = this.parametros.find(act=>act.estado == estdo);
-   if(activos.estado==true){
+  
+
+  getEstado(estado): string{
+    let activos = this.parametros.find(act=>act.estado == estado);
+   if(activos){
+    if(Boolean(activos.estado)==true){
      return "Sujeto a prestamo";
    }
     else 
     return "No sujeto a prestamo";
-  }
+  }}
 
   saveValidar(valid) {
     if (!valid) return;

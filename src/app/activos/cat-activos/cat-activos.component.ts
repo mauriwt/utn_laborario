@@ -88,6 +88,7 @@ export class CatActivosComponent implements OnInit {
     this.modal.hide();
   }
 
+
   deletValidar(valid) {
     if (!valid) return;
     if (this.catActivo.id_categoria) {

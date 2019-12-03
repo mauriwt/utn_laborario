@@ -12,9 +12,12 @@ declare var $;
 export class ElectricosComponent implements OnInit {
 
   @ViewChild('mdeqElectricos') modal: any;
+  
+  @ViewChild('mdDeleteqElectricos') deletedmodal: any;
+  @ViewChild('mdDetalleeqElectricos') detallemodal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: Eqelectricos;
+  public parametros: Eqelectricos[];
   public eqElectricos: Eqelectricos;
   public catprt: CatEqelectricos[];
 
@@ -25,6 +28,7 @@ export class ElectricosComponent implements OnInit {
     this.eqElectricos = new Eqelectricos();
     this.getAplicaciones();
     this.getAplicacionesCat();
+    this.parametros=new Array<Eqelectricos>(); 
   }
  
   getAplicacionesCat() {
@@ -94,7 +98,51 @@ getAplicaciones() {
     this.modal.show();
   }
 
+  getNombre(idCategoria): string {
+    let categoria = this.catprt.find(cat => cat.id_cat_eq_electricos == idCategoria);
+    if (categoria)
+      return categoria.nombre;
+    else return "No aplica";
+  }
+  
 
+  getEstado(estado): string{
+    let electricos = this.parametros.find(act=>act.estado == estado);
+   if(electricos){
+    if(Boolean(electricos.estado)==true){
+     return "Sujeto a prestamo";
+   }
+    else 
+    return "No sujeto a prestamo";
+  }}
+
+  getDetalle(activo) {
+    this.eqElectricos= new Eqelectricos();
+    this.eqElectricos = Object.assign({}, activo)
+    this.detallemodal.show();
+  }
+  deletValidar(valid) {
+    if (!valid) return;
+    if (this.eqElectricos.id_eq_electrico) {
+      this.save("delete", `${config.APIRest.eqelectricos.delete}/${this.eqElectricos.id_eq_electrico}`)
+    }
+    this.deletedmodal.hide();
+  }
+
+  deletedFila(activo) {this.eqElectricos = new Eqelectricos();
+    this.eqElectricos = Object.assign({}, activo)
+    this.deletedmodal.show();
+  }
+  decancelar() {
+    this.eqElectricos = Object.assign({}, new Eqelectricos());
+    $('#defrmActivo').bootstrapValidator('resetForm', true);
+    this.deletedmodal.hide();
+  }
+    detacancelar() {
+      this.eqElectricos = Object.assign({}, new Eqelectricos());
+      $('#defrmActivo').bootstrapValidator('resetForm', true);
+      this.detallemodal.hide();
+    }
   getValidators() {
     return {
       feedbackIcons: {

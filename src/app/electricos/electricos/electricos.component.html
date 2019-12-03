@@ -37,9 +37,13 @@
                   <tr *ngFor="let s of parametros; let i = index">
                     <td>
                       <a placement="top" tooltip="Editar Fila" class="fa fa-pencil fa-lg"
-                        (click)="getFila(s.appCodigo)"></a>
+                        (click)="getFila(s)"></a>
+                        &nbsp; &nbsp; &nbsp;
+                        <a placement="top" tooltip="Eliminar Categotia" class="fa fa-trash btn-danger"
+                          (click)="deletedFila(s)"></a>
+  
                     </td>
-                    <td>{{s.id_categoria_ac}}</td>
+                    <td>{{getNombre(s.id_cat_eq_electricos)}}</td>
                     <td>{{s.nombre}}</td>
                     <td>{{s.serie}}</td>
                     <td>{{s.cod_utn}}</td>
@@ -183,6 +187,139 @@
                     </fieldset>
                   </div>
                 </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+  <!-- //////////////////// METODO ELIMINAR ////////////////////////////////////-->
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+
+  <div id="anio" bsModal #mdDeleteqElectricos="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="decancelar()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title"> Eliminar registro </h4>
+        </div>
+        <div class="modal-body">
+          <wt-shuyai *ngIf="cargando"></wt-shuyai>
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="frmActivos" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate"
+                (submitEvent)="deletValidar($event)">
+                <fieldset>
+                  <h2>{{eqElectricos.nombre}}
+
+                  </h2>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-actions">
+                    <div class="pull-left">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit">
+                          Eliminar
+                        </button>
+                        <button class="btn btn-danger" type="button" (click)="decancelar()">
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                  </div>
+                </fieldset>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- //////////////////// METODO VER DETALLE ////////////////////////////////////-->
+  <!-- //////////////////////////////////////////////////////////////////////// -->
+
+  <div id="anio" bsModal #mdDetalleeqElectricos="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="detacancelar()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title"> Detalle de Activo </h4>
+        </div>
+        <div class="modal-body">
+          <wt-shuyai *ngIf="cargando"></wt-shuyai>
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="frmActivos" #form [saBootstrapValidator]="getValidators()" novalidate="novalidate"
+                (submitEvent)="saveValidar($event)">
+                <fieldset>
+                  <table class="table table-stripped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>{{eqElectricos.nombre}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <tr>
+                        <td>Categoria</td>
+                        <td>{{getNombre(eqElectricos.id_cateac)}}</td>
+                      </tr> -->
+
+                      <tr>
+                        <td>descripcion</td>
+                        <td>{{eqElectricos.descripcion}}</td>
+                      </tr>
+                      <tr>
+                        <td>Serie</td>
+                        <td>{{eqElectricos.serie}}</td>
+                      </tr>
+                      <tr>
+                        <td>Codigo Utn</td>
+                        <td>{{eqElectricos?.cod_utn}}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Cantidad</td>
+                        <td>{{eqElectricos?.cantidad}}</td>
+                      </tr>
+                      <tr>
+                        <td>Estado</td>
+                        <td>{{getEstado(eqElectricos?.estado)}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-actions">
+                    <div class="pull-left">
+                      <div class="col-md-12">
+
+                        <button class="btn btn-danger" type="button" (click)="detacancelar()">
+                          Cerrar
+                        </button>
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                  </div>
+                </fieldset>
+
               </form>
             </div>
           </div>

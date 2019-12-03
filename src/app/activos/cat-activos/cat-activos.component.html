@@ -25,7 +25,6 @@
                 <thead>
                   <tr>
                     <th class="acciones">Acciones</th>
-                    <th tooltip="Ascendente/descendente">Categoria</th>
                     <th tooltip="Ascendente/descendente">Nombre</th>
                     <th tooltip="Ascendente/descendente">Descripcios</th>
                     <th class="acciones">Mostrar</th>
@@ -38,10 +37,7 @@
                       &nbsp; &nbsp; &nbsp;
                       <a placement="top"  tooltip="Eliminar Categotia" class="fa fa-trash btn-danger" (click)="deletedFila(s)"></a>
 
-                      <!-- <button class="btn btn-danger" title="delete atributo"
-                      (click)="">Delete</button> -->
                     </td>
-                    <td>{{s.id_categoria}}</td>
                     <td>{{s.nombre}}</td>
                     <td>{{s.descripcion}}</td>
                     <td>
