@@ -7,6 +7,7 @@ import { cardocesRouting} from './cardoces.routing';
 import { ObservableNodeService, CRUDService, AlertasService } from 'app/providers';
 import { SmartadminModule } from 'app/shared/smartadmin.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdministrativoComponent } from './administrativo/administrativo.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     SmartadminModule
   ],
-  declarations: [DocentesComponent, EstudiantesComponent, CarreraComponent],
+  declarations: [DocentesComponent, EstudiantesComponent, CarreraComponent, AdministrativoComponent],
   providers: [ObservableNodeService, CRUDService, AlertasService]
 })
 export class CardocesModule { }

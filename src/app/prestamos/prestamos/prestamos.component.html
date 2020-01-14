@@ -54,6 +54,8 @@
       </article>
     </div>
   </sa-widgets-grid>
+
+  <!-- EL CODIGO SIGUIENGTE ES PARA ELM ODAL DE IMGRESO Y EDICION DE INFORMACION DE ESTUDIANTES A LA BASE DE DATOS -->
   
   <div id="anio" bsModal #mdregPrestamoeEstudiante="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
   [config]="{backdrop: 'static',  keyboard: false}">
@@ -104,19 +106,23 @@
                 
                 <fieldset>
                     <label for="">Ingrese Su cedula para realizar prestamo:</label>
-                    <input  id="id_persona-reg" type="text"  [(ngModel)]="regPrestamo.id_persona"  class="form-control" name="id_per_reg" required
+                     <input  id="id_persona-reg" type="text"  [(ngModel)]="regPrestamo.id_persona"  class="form-control" name="id_per_reg" required
                     class="col-lg-1" type="text"
                     value="{{enviarid(selected)}}" 
                     disabled style="background-color:white; border-color:white" >          
-                        
+                      
+
                     <div class="">
-                          <input class="typeahead" name="typeestudiante" [(ngModel)]="selected"
+                          <input class="typeahead" name="typeestudiante" 
+                          [(ngModel)]="regPrestamo.id_persona"
                          [typeahead]="personas"
                       typeaheadOptionField="documento"
-                      (typeaheadNoResults)="typeaheadNoResults($event)" class="form-control">
-                      <pre class="card card-block card-header mb-3" name="evalu"
-                         >{{datospersona(selected)}}</pre>  
+                      (typeaheadNoResults)="typeaheadNoResults($event)"  class="form-control"
+                      >
+                      <pre class="card card-block card-header mb-3" name="evalu" 
+                         >{{datospersona(onSelecionarEstado($event))}}</pre>  
                       </div>
+                      
                    </fieldset>
 
                 <fieldset>

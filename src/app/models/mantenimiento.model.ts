@@ -1,24 +1,27 @@
+
+
 export class Mantenimiento{
         id_mantenimiento:number;
         fecha_ingreso:number;   
-        id_pc:number; 
+        id_pc?:number; 
         id_tmant?:number;   
         id_activos?:number; 
         id_eq_electrico?:number; 
-        problema:string;  
-        recomendacion:string;   
-        m_preventivo:string;    
-        m_correctivo:string;    
+        problema?:string;  
+        recomendacion?:string;   
+        m_preventivo?:string;    
+        m_correctivo?:string;    
         fecha_entrega?:number; 
 
         public static getValidators() {
                 return {
+
                    fecha_ingreso: {
                         validators: {
                        notEmpty: {
                           message: 'es un campo obligatorio.'
-                            },
-                           
+                                 },
+         
                     },
                     },
                     id_tmant: {
@@ -99,9 +102,10 @@ export class Mantenimiento{
                        notEmpty: {
                           message: 'es un campo obligatorio.'
                             },
-                           
-                    },
+                        
+                                                },
                     },
                 }
             }
+            
            }

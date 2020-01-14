@@ -34,6 +34,10 @@ export class AlertasService {
         content = `No tiene permisos para ejecutar el servicio <b>${err.url}</b>  `;
         this.mostrarAlertaError("Error de autenticación.", content, err);
       }
+      else if(err.status == 406 || err.status == 410){
+        content = `La fecha y la ubicacion ya estan utilizadas `;
+        this.mostrarAlertaError("Mensaje del servidor.", content,"");
+      }
       else{
         content = ( errores.mensaje || 'Error desconocido.') 
         + "<br>Ejecutando: " + (errores.accionEjecutada || 'desconocida');

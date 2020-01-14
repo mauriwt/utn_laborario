@@ -23,6 +23,12 @@ export const config: any = {
           delete: "/rest-activos/deleted",
           update: "/rest-activos/updated",
         },
+        admin: {
+          list: "/rest-admin/list",
+          add: "/rest-admin/add",
+          delete: "/rest-admin/deleted",
+          update: "/rest-admin/updated",
+        },
         carrera: {
           list: "/rest-carrera/list",
           add: "/rest-carrera/add",

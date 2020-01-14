@@ -131,7 +131,7 @@ export class SaveComponent implements OnInit {
         self.fechaInicio = new Date(fechaIn);
                 self.modal.show();
 
-        /*if (self.noJobDays.length > 0) {
+        if (self.noJobDays.length > 0) {
           if (cast.getFullYear() == self.calendario.cabAnio) {
             if (fechaIn >= self.hoy) {
               let dato = self.noJobDays.find(f => fechaIn === f.cadFecha.getTime());
@@ -148,7 +148,7 @@ export class SaveComponent implements OnInit {
           }
         } else {
           self.msj.mostrarAlertaMessage("<b>Aviso</b>", "Habilite el calendario para visualizar los días no laborables.", "")
-        }*/
+        }
       },
       eventRender: (event, element, icon) => {
         if (event.description != "") {

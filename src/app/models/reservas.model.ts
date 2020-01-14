@@ -3,14 +3,16 @@ var moment: any;
 var f = new Date();
 export class Reservas {
    id_regresv: number;
-   id_persona: number;
-   id_ciclo: number;
-   id_ubicacion: number;
-   id_docente_res: number;
-   descripcion: string;
-   tipo_reserva: string;
-   fecha_inicio: number;
-   fecha_fin: number;
+   id_persona?: number;
+   id_ciclo?: number;
+   id_ubicacion?: number;
+   id_docente_res?: number;
+   id_administrativo?:number;
+   descripcion?: string;
+   tipo_reserva?: string;
+   fecha_inicio?: number;
+   fecha_fin?: number;
+   horas?: number;
    public static getValidators() {
 
          return {
@@ -18,7 +20,7 @@ export class Reservas {
          id_persona: {
             validators: {
                notEmpty: {
-                  message: 'La Categoria es obligatoria.'
+                  message: 'La Categoria es obligatormia.'
                },
             },
          },

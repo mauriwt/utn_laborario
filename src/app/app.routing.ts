@@ -28,7 +28,7 @@ export const routes: Routes = [
       // cdp es el modulo de persona que incluye persona docentes y carrera
       {path: 'cdp', loadChildren: 'app/persona/cardoces.module#CardocesModule', data:{pageTitle:'listado'},resolve: [AuthResolver]},
       {path: 'prestamos', loadChildren: 'app/prestamos/prestamos.module#PrestamosModule', data:{pageTitle:'Prestamos'},resolve: [AuthResolver]},
-    //  {path: 'reservas', loadChildren: 'app/reservaciones/reservaciones.module#ReservacionesModule', data:{pageTitle:'Reservaciones'},resolve: [AuthResolver]},
+     {path: 'reservas', loadChildren: 'app/reservaciones/reservaciones.module#ReservacionesModule', data:{pageTitle:'Reservaciones'},resolve: [AuthResolver]},
     
       {path: 'software', loadChildren: 'app/software/software.module#SoftwareModule', data:{pageTitle:'Software'},resolve: [AuthResolver]},
       {path: 'ubicacion', loadChildren: 'app/ubicacion/ubicacion.module#UbicacionModule', data:{pageTitle:'Ubicacion'},resolve: [AuthResolver]},

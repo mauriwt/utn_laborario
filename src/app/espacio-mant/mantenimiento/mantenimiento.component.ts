@@ -20,10 +20,11 @@ export class MantenimientoComponent implements OnInit {
 
 
   @ViewChild('mdmAnten') modal: any;
-  @ViewChild('mdfinManteniento') mfinmodal: any;
+  @ViewChild('mdfinMantenimiento') finmodal: any;
   @ViewChild('mdDeletactivos') deletedmodal: any;
   @ViewChild('mdDetalleactivo') detallemodal: any;
   @ViewChild('mdUpdateactivo') updatemodal: any;
+
   public cargando: boolean;
   private base = config.APIRest.url;
   public parametros: Mantenimiento[];
@@ -35,6 +36,8 @@ export class MantenimientoComponent implements OnInit {
 
   fecha: string;
   hora: string;
+  fechas: string;
+  horas: string;
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
     private msj: AlertasService) { }
 
@@ -48,9 +51,6 @@ export class MantenimientoComponent implements OnInit {
     this.getAplicaciones();
   }
 
-  /**
-   * Metodos Get de la aplicacion
-  */
   getAplicaciones() {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.mantenimiento.list}`).subscribe(response => {
@@ -64,7 +64,7 @@ export class MantenimientoComponent implements OnInit {
 
   getActivos() {
     this.cargando = true;
-    this.crud.obtener(`${this.base}${config.APIRest.activoss.list}`).subscribe(response => {
+    this.crud.obtener(`${this.base}${config.APIRest.activos.list}`).subscribe(response => {
       this.parametros = response;
       this.cargando = false;
     }, error => {
@@ -79,65 +79,68 @@ export class MantenimientoComponent implements OnInit {
       return "Nombre: " + categoriap.nombre + "\n " + "tipo " + categoriap.tipocategoria + "\n " + "Categoria" + categoriap.serie;
     else return " ";
   }
-  getDetalle(mante) {
-    this.mAnten = new Mantenimiento();
-    this.mAnten = Object.assign({}, mante)
-    this.detallemodal.show();
-  }
-  detallecancelar() {
-    this.mAnten = Object.assign({}, new Mantenimiento());
-    $('#defrmActivo').bootstrapValidator('resetForm', true);
-    this.detallemodal.hide();
+
+  getElectricos() {
+    this.cargando = true;
+    this.crud.obtener(`${this.base}${config.APIRest.eqelectricos.list}`).subscribe(response => {
+      this.parametros = response;
+      this.cargando = false;
+    }, error => {
+      this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
+      this.cargando = false;
+    })
   }
 
-  getFila(mantenimiento) {
-    this.mAnten = new Mantenimiento();
-    this.mAnten = Object.assign({}, mantenimiento)
-    this.modal.show();
+  getdatosElectrico(id): string {
+    let ordenador = this.ordenador.find(cat => cat.codutnpc == id);
+    if (ordenador)
+      return "Nombre: " + ordenador.modelopc;
+    else return " ";
   }
-  cancelar() {
-    this.mAnten = Object.assign({}, new Mantenimiento());
-    $('#frmMantenimiento').bootstrapValidator('resetForm', true);
-    this.modal.hide();
-  }
-
-  getFilaFin(mantenimiento) {
-    this.mAnten = new Mantenimiento();
-    this.mAnten = Object.assign({}, mantenimiento)
-    this.mfinmodal.show();
-  }
-  cancelarFin() {
-    this.mAnten = Object.assign({}, new Mantenimiento());
-    $('#frmMantenimiento').bootstrapValidator('resetForm', true);
-    this.mfinmodal.hide();
-  }
-
-
-
-  open() {
-    this.modal.show();
-  }
-
   /**
-   *  Metodo del  Typehead
+   * @memberof Get_ordenador
+   * metodos gen del ordenador
    */
+  getOrdenador() {
+    this.cargando = true;
+    this.crud.obtener(`${this.base}${config.APIRest.ordenador.list}`).subscribe(response => {
+      this.parametros = response;
+      this.cargando = false;
+    }, error => {
+      this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
+      this.cargando = false;
+    })
+  }
+
+
   noResult = false;
   selectedOption: any;
 
   typeaheadNoResults(event: boolean): void {
     this.noResult = event;
   }
-  /**
-   * Metodos de Guardado y editado
-   */
+
+  saveValidar(valid) {
+    if (!valid) return;
+    if (this.mAnten.id_mantenimiento) {
+      this.save("update", `${config.APIRest.mantenimiento.update}/${this.mAnten.id_mantenimiento}`);
+    } else {
+      this.save("insert", config.APIRest.mantenimiento.add);
+    }
+  }
 
 
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();
-    let fe = new Date(this.convertirFecha(this.fecha, this.hora))
+    let fe = new Date(this.Fechaentrada(this.fecha, this.hora))
     this.mAnten.fecha_ingreso = fe.getTime();
-    console.log(this.mAnten)
+
+
+
+    // if (!moment( this.mAnten.fecha_ingreso).isValid()) {
+    //   console.log('Invalid Date');
+
     this.crud.save(`${this.base}${url}`, this.mAnten, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
@@ -146,118 +149,69 @@ export class MantenimientoComponent implements OnInit {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
     })
+    // }
+    // else   this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
+    // this.cargando = false;
   }
-  savemto(tipo, url) {
+  mantenimentoValidar(valid) {
+    if (!valid) return;
+    if (this.mAnten.id_mantenimiento) {
+      this.saves("update", `${config.APIRest.mantenimiento.update}/${this.mAnten.id_mantenimiento}`);
+
+    } this.finmodal.hide();
+  }
+  saves(tipo, url) {
     this.cargando = true;
-    this.modal.hide();
-    let fe = new Date(this.convertirFecha(this.fecha, this.hora))
-    this.mAnten.fecha_entrega = fe.getTime();
+    this.finmodal.hide();
+    let fes = new Date(this.Fechasalida(this.fechas, this.horas))
+    this.mAnten.fecha_entrega = fes.getTime();
+    // if(this.mAnten.fecha_ingreso <= fes.getTime()){
     console.log(this.mAnten)
     this.crud.save(`${this.base}${url}`, this.mAnten, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
-      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b> El mantenimiento se guardó correctamente.</b>", "")
+      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro sd se guardó correctamente.</b>", "")
     }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
     })
+    // }
+    // else
+    // this.msj.mostrarAlertaError("<b>Error</b>", "<b>La fecha debe ser mayor a la inicial</b>", "")
+    // this.cargando = false;
   }
 
-  savemtoValidar(valid) {
-    if (!valid) return;
-    if (this.mAnten.id_mantenimiento) {
-      this.save("update", `${config.APIRest.mantenimiento.update}/${this.mAnten.id_mantenimiento}`);
-    }
-    this.updatemodal.hide();
+  open() {
+    this.modal.show();
   }
-
-  saveValidar(valid) {
-    if (!valid) return;
-    if (this.mAnten.id_mantenimiento) {
-      this.save("insert", config.APIRest.mantenimiento.add);
-    }
-  }
-
-  updateValidar(valid) {
-    if (!valid) return;
-    if (this.mAnten.id_mantenimiento) {
-      this.save("update", `${config.APIRest.mantenimiento.update}/${this.mAnten.id_mantenimiento}`);
-    }
-    this.updatemodal.hide();
-  }
-
-  
-  /**
-   * Metodos de Eliminar
-   */
-
-  deletValidar(valid) {
-    if (!valid) return;
-    if (this.mAnten.id_mantenimiento) {
-      this.save("delete", `${config.APIRest.mantenimiento.delete}/${this.mAnten.id_mantenimiento}`)
-    }
-    this.deletedmodal.hide();
-  }
-
-
-  deletedFila(mante) {
+  getFila(mantenimiento) {
     this.mAnten = new Mantenimiento();
-    this.mAnten = Object.assign({}, mante)
-    this.deletedmodal.show();
+    this.mAnten = Object.assign({}, mantenimiento)
+    this.modal.show();
   }
-  deletcancelar() {
+
+  cancelar() {
     this.mAnten = Object.assign({}, new Mantenimiento());
-    $('#defrmActivo').bootstrapValidator('resetForm', true);
-    this.deletedmodal.hide();
+    $('#frmMantenimiento').bootstrapValidator('resetForm', true);
+    this.modal.hide();
   }
-
-
-
-
-
-  /**
-   * metodos de fecha
-   */
-  ctrl = new FormControl('', (control: FormControl) => {
-    const value = control.value;
-    if (!value) { return null; }
-    if (value.hour <= 7) { return { tooEarly: true }; }
-    if (value.hour >= 0) {
-      if (value.minute >= 1) {
-        return { tooLate: true };
-      }
-    }
-    return null;
-  });
-
+  getFilaSa(mantenimiento) {
+    this.mAnten = new Mantenimiento();
+    this.mAnten = Object.assign({}, mantenimiento)
+    this.finmodal.show();
+  }
+  cancelarSa() {
+    this.mAnten = Object.assign({}, new Mantenimiento());
+    $('#frmMantenimiento').bootstrapValidator('resetForm', true);
+    this.finmodal.hide();
+  }
   getCast(id) {
     if (id) {
-      console.log(new Date(+id));
+      // console.log(new Date(+id));
       return new Date(+id);
     }
 
   }
-  public setFecha(e) {
-    $("#fecha").val(e).trigger('input');
-    this.fecha = e;
-  }
-  public setHora(e) {
-    $("#hora").val(e).trigger('input');
-    this.hora = e;
-  }
-
-  public convertirFecha(fecha: string, hora: string) {
-    if (fecha && hora)
-      return moment(`${fecha} ${hora}`, 'DD/MM/yyyy HH:mm').toDate();
-    else if (fecha)
-      return moment(fecha, 'DD/MM/yyyy').toDate();
-    return null;
-  }
-  public lista: string[] = [
-    'computadores',
-    'Equipos Electricos',
-    'Activos'];
-
 
   getValidators() {
     return {
@@ -270,4 +224,46 @@ export class MantenimientoComponent implements OnInit {
     };
   }
 
+  public setFecha(e) {
+    $("#fecha").val(e).trigger('input');
+    this.fecha = e;
+  }
+  public setHora(e) {
+    $("#hora").val(e).trigger('input');
+    this.hora = e;
+  }
+  public setFechas(e) {
+    $("#fechas").val(e).trigger('input');
+    this.fechas = e;
+
+  }
+  public setHoras(e) {
+    $("#horas").val(e).trigger('input');
+    this.horas = e;
+  }
+
+
+  public Fechaentrada(fecha: string, hora: string) {
+
+    if (fecha && hora)
+      return moment(`${fecha} ${hora}`, 'DD/MM/yyyy HH:mm').toDate()
+    else if (fecha)
+      return moment(fecha, 'DD/MM/yyyy').toDate();
+    return null;
+  }
+  public Fechasalida(fechas: string, horas: string) {
+    if (fechas && horas)
+      return moment(`${fechas} ${horas}`, 'DD/MM/yyyy HH:mm').toDate();
+    else if (fechas)
+      return moment(fechas, 'DD/MM/yyyy').toDate();
+    return null;
+  }
+
+
+  public lista: string[] = [
+    'computadores',
+    'Equipos Electricos',
+    'Activos'];
+
 }
+
