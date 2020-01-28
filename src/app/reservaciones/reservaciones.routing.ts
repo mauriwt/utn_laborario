@@ -5,13 +5,7 @@ export const reservacionesRoutes: Routes = [
      // ubicada en el approuting 
       
     
-    {
-         path: '',
-        component: ReservacionesComponent,
-        data: {
-            pageTitle: 'Lista de reservaciones'
-        },        
-    },   
+ 
      
 ];
 

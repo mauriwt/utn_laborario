@@ -14,7 +14,7 @@ export class TipoEspacioComponent implements OnInit {
   @ViewChild('mdtipoEspa') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: TipoEspacio;
+  public parametros: TipoEspacio[];
   public tipoEspa: TipoEspacio;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
@@ -38,10 +38,16 @@ export class TipoEspacioComponent implements OnInit {
 
   saveValidar(valid) {
     if (!valid) return;
+    let ress = this.parametros.find(dat => dat.nombre === this.tipoEspa.nombre);
     if (this.tipoEspa.id_tipo) {
       this.save("update", `${config.APIRest.tipoespacio.update}/${this.tipoEspa.id_tipo}`);
     } else {
+      if(!ress){
       this.save("insert",config.APIRest.tipoespacio.add);
+      } else{
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+    
+      }
     }
   }
 

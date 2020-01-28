@@ -89,7 +89,7 @@
                     <b class="text-danger"> *</b>
                   </label>
                   <div class="col-lg-4">
-                    <select class="select-menu" type="select" name="id_categoria_ac" id="id_categoria_ac"
+                    <select class="select-menu" type="select" name="id_categoria_ac de activo" id="id_categoria_ac"
                       [(ngModel)]="Pactivos.id_categoria_ac" class="form-control" required>
                       <option *ngFor="let c of catprt" ngModelChange="eventChange" [ngValue]="c.id_categoria">
                         {{c.nombre}}</option>
@@ -102,7 +102,7 @@
                     <b class="text-danger">*</b>
                   </label>
                   <div class="col-lg-4">
-                    <input [(ngModel)]=" Pactivos.nombre" id="nombre" type="text" class="form-control" name="nombre"
+                    <input [(ngModel)]=" Pactivos.nombre" id="nombre" type="text" class="form-control" name="nombre de activo"
                       required>
                   </div>
                 </fieldset>
@@ -113,7 +113,7 @@
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]=" Pactivos.serie" id="serie" type="text" class="form-control" name="serie">
+                      <input [(ngModel)]=" Pactivos.serie" id="serie" type="text" class="form-control" name="serie de activo">
                     </div>
                   </div>
                 </fieldset>
@@ -125,7 +125,7 @@
                     </label>
                     <div class="col-lg-8">
                       <input [(ngModel)]=" Pactivos.cod_utn" id="cod_utn" type="text" class="form-control"
-                        name="cod_utn">
+                        name="cod_utn de activo">
                     </div>
                   </div>
                 </fieldset>
@@ -146,11 +146,11 @@
                     <label class="col-lg-4 control-label">Seleccione opcion de activo:
                       <b class="text-danger">*</b> </label>
                     <div>
-                      <input type="radio" name="estado" value="true" [(ngModel)]="Pactivos.estado"> <span>Activo sujeto
+                      <input type="radio" name="estado de activo" value="true" [(ngModel)]="Pactivos.estado"> <span>Activo sujeto
                         a prestamo</span>
                     </div>
                     <div>
-                      <input type="radio" name="estado" value="false" [(ngModel)]="Pactivos.estado"> <span> no sujeto a
+                      <input type="radio" name="estado de activo" value="false" [(ngModel)]="Pactivos.estado"> <span> no sujeto a
                         prestamo</span>
                     </div>
                   </div>
@@ -162,7 +162,7 @@
                     </label>
                     <div class="col-lg-12">
                       <textarea [(ngModel)]=" Pactivos.descripcion" id="descripcion" type="textarea"
-                        class="form-control" name="descripcion" required></textarea>
+                        class="form-control" name="descripcion de activo" required></textarea>
                     </div>
                   </div>
                 </fieldset>

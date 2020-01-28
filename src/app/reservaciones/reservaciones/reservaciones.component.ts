@@ -341,14 +341,6 @@ export class ReservacionesComponent implements OnInit {
   }
 
 
-  public validar(cadena){
-    for(cadena>0; cadena.length<=this.parametros; cadena++){
-  if(cadena.fecha_inicio==new this.fechaInicio){
-
-  }
-    }
-  }
-
   getValidators() {
     return {
       feedbackIcons: {
@@ -363,7 +355,7 @@ export class ReservacionesComponent implements OnInit {
 
 
   reset() {
-    this.fechaInicio = null;
+ //   this.fechaInicio = null;
     this.modal.hide();
   }
 

@@ -18,7 +18,7 @@ export class CatElectricosComponent implements OnInit {
   @ViewChild('mdDetalleEqelectricos') detallemodal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: CatEqelectricos;
+  public parametros: CatEqelectricos[];
   public catEqelectricos: CatEqelectricos;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
@@ -42,12 +42,20 @@ export class CatElectricosComponent implements OnInit {
 
   saveValidar(valid) {
     if (!valid) return;
+    let res= this.parametros.find(dat => dat.nombre === this.catEqelectricos.nombre)
+     
     if (this.catEqelectricos.id_cat_eq_electricos) {
+      
       this.save("update", `${config.APIRest.cateqelectricos.update}/${this.catEqelectricos.id_cat_eq_electricos}`);
     } else {
-      this.save("insert",config.APIRest.cateqelectricos.add);
+ 
+      if(!res){
+      this.save("insert", config.APIRest.cateqelectricos.add);
     }
-  }
+    else { this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en Uso</b>", "")
+  }}
+}
+  
 
   save(tipo, url) {
     this.cargando = true;

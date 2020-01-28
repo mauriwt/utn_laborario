@@ -15,7 +15,7 @@ export class MarcaOrdenadorComponent implements OnInit {
   @ViewChild('mdmarcaOrdena') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: MarcaOrdenador;
+  public parametros: MarcaOrdenador[];
   public marcaOrdena: MarcaOrdenador;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
@@ -39,10 +39,21 @@ export class MarcaOrdenadorComponent implements OnInit {
 
   saveValidar(valid) {
     if (!valid) return;
+    let ress = this.parametros.find(dat => dat.nombre_marca === this.marcaOrdena.nombre_marca);
+    // Res es utilizado para el update 
+    let res = this.parametros.find(dat => dat.id_marca===this.marcaOrdena.id_marca && dat.nombre_marca === this.marcaOrdena.nombre_marca);
     if (this.marcaOrdena.id_marca) {
+      if(!res){
       this.save("update", `${config.APIRest.ordenadormarca.update}/${this.marcaOrdena.id_marca}`);
-    } else {
-      this.save("insert",config.APIRest.MarcaOrdenador.add);
+    
+    }else{
+      this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+        }} else {
+      if(!ress){
+      this.save("insert",config.APIRest.MarcaOrdenador.add); } else{
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+          }
+      
     }
   }
 

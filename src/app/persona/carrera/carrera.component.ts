@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Carrera } from 'app/models';
+import { Carrera } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
 declare var $;
 @Component({
@@ -14,37 +14,50 @@ export class CarreraComponent implements OnInit {
   @ViewChild('mdcarRera') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: Carrera;
+  public parametros: Carrera[];
   public carRera: Carrera;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
-     private msj:AlertasService) { }
+    private msj: AlertasService) { }
 
   ngOnInit() {
     this.carRera = new Carrera();
     this.getAplicaciones();
   }
- 
+
   getAplicaciones() {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.carrera.list}`).subscribe(response => {
       this.parametros = response;
       this.cargando = false;
-    }, error =>{
+    }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detecto un problema en la respuesta del servicio.</b>", error)
       this.cargando = false;
     })
   }
 
+
   saveValidar(valid) {
     if (!valid) return;
+    let ress = this.parametros.find(dat => dat.nombre === this.carRera.nombre);
+    // Res es utilizado para el update 
+    let res = this.parametros.find(dat => dat.id_carrera === this.carRera.id_carrera && dat.nombre === this.carRera.nombre);
     if (this.carRera.id_carrera) {
-      this.save("update", `${config.APIRest.carrera.update}/${this.carRera.id_carrera}`);
+      if (!res) {
+        this.save("update", `${config.APIRest.carrera.update}/${this.carRera.id_carrera}`);
+
+      } else {
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>", "")
+      }
     } else {
-      this.save("insert",config.APIRest.carrera.add);
+      if (!ress) {
+        this.save("insert", config.APIRest.carrera.add);
+      } else {
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>", "")
+      }
+
     }
   }
-
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();
@@ -59,18 +72,18 @@ export class CarreraComponent implements OnInit {
     })
   }
 
-  getFila(lugar){
+  getFila(lugar) {
     this.carRera = new Carrera();
     this.carRera = Object.assign({}, lugar)
     this.modal.show();
   }
-  cancelar(){
+  cancelar() {
     this.carRera = Object.assign({}, new Carrera());
     $('#frmLugar').bootstrapValidator('resetForm', true);
     this.modal.hide();
   }
 
-  open(){
+  open() {
     this.modal.show();
   }
 

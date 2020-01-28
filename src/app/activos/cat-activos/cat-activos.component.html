@@ -71,11 +71,11 @@
                 (submitEvent)="saveValidar($event)" class="form-horizontal">
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Nombre cat:
+                    <label class="col-lg-4 control-label">Nombre:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="catActivo.nombre" id="nombre" type="text" class="form-control" name="nombre"
+                      <input [(ngModel)]="catActivo.nombre" id="nombre" type="text" class="form-control" name="nombre de categoria"
                         required>
                     </div>
                   </div>
@@ -83,12 +83,12 @@
 
                 <fieldset>
                   <div class="form-group">
-                    <label class="col-lg-4 control-label">Descripción cat:
+                    <label class="col-lg-4 control-label">Descripción:
                       <b class="text-danger">*</b>
                     </label>
                     <div class="col-lg-8">
-                      <input [(ngModel)]="catActivo.descripcion" id="descripcion" type="text" class="form-control"
-                        name="descripcion" required>
+                      <textarea [(ngModel)]="catActivo.descripcion" id="descripcion" type="text" class="form-control"
+                        name="descripcion de categoria" required></textarea>
                     </div>
                   </div>
                 </fieldset>

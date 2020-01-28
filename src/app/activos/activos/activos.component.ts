@@ -79,14 +79,31 @@ export class ActivosComponent implements OnInit {
     return "No sujeto a prestamo";
   }}
 
+
+  /*
+   *  SaveValidar es el metodo para la realizacion de 
+  * Validaciones las cuales seran cumplidas acorde al orde establecido.
+*/
   saveValidar(valid) {
     if (!valid) return;
+    let rescu= this.parametros.find(dat => dat.cod_utn === this.Pactivos.cod_utn);
+    let ress= this.parametros.find(dat => dat.serie === this.Pactivos.serie);
+   let id= this.parametros.find(dat => dat.id_activos === this.Pactivos.id_activos)
+
     if (this.Pactivos.id_activos) {
-      this.save("update", `${config.APIRest.activos.update}/${this.Pactivos.id_activos}`);
-    } else {
+          this.save("update", `${config.APIRest.activos.update}/${this.Pactivos.id_activos}`); 
+        } else {
+      if(!rescu){
+        if(!ress){
       this.save("insert", config.APIRest.activos.add);
-    }
+    
   }
+  else { this.msj.mostrarAlertaError("<b>Error</b>", "<b>El numero de serie ya esta en Uso</b>", "")
+  }
+  }
+    else { this.msj.mostrarAlertaError("<b>Error</b>", "<b>El Codigo Utn ya esta en Uso</b>", "")
+  }
+  }}
 
   save(tipo, url) {
     this.cargando = true;

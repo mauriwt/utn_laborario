@@ -3,11 +3,6 @@ import { CRUDService, AlertasService } from 'app/providers';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Mantenimiento, TipoMant, Ordenador, Activos, Eqelectricos } from 'app/models';
 import { config } from 'app/shared/smartadmin.config';
-import { FormControl } from '@angular/forms';
-
-
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
-
 
 declare var $;
 declare var moment;
@@ -112,7 +107,6 @@ export class MantenimientoComponent implements OnInit {
     })
   }
 
-
   noResult = false;
   selectedOption: any;
 
@@ -120,27 +114,36 @@ export class MantenimientoComponent implements OnInit {
     this.noResult = event;
   }
 
+
+
+
+
+
+
+
+
+
+
+  
+  /**
+   * @param valid. Tabla manteniemto no necesita validacion de una clave unica devido a que el ID
+   *  es auto incrementable  y valores como problema  mantenimiento correctivo y preventivo pueden repetirnse.
+   */
+
   saveValidar(valid) {
     if (!valid) return;
+    let dateDay = new Date();
     if (this.mAnten.id_mantenimiento) {
       this.save("update", `${config.APIRest.mantenimiento.update}/${this.mAnten.id_mantenimiento}`);
     } else {
+      this.mAnten.fecha_ingreso = dateDay.getTime();
       this.save("insert", config.APIRest.mantenimiento.add);
     }
   }
 
-
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();
-    let fe = new Date(this.Fechaentrada(this.fecha, this.hora))
-    this.mAnten.fecha_ingreso = fe.getTime();
-
-
-
-    // if (!moment( this.mAnten.fecha_ingreso).isValid()) {
-    //   console.log('Invalid Date');
-
     this.crud.save(`${this.base}${url}`, this.mAnten, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
@@ -149,38 +152,28 @@ export class MantenimientoComponent implements OnInit {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
     })
-    // }
-    // else   this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
-    // this.cargando = false;
   }
   mantenimentoValidar(valid) {
     if (!valid) return;
     if (this.mAnten.id_mantenimiento) {
       this.saves("update", `${config.APIRest.mantenimiento.update}/${this.mAnten.id_mantenimiento}`);
-
     } this.finmodal.hide();
   }
   saves(tipo, url) {
     this.cargando = true;
     this.finmodal.hide();
-    let fes = new Date(this.Fechasalida(this.fechas, this.horas))
-    this.mAnten.fecha_entrega = fes.getTime();
-    // if(this.mAnten.fecha_ingreso <= fes.getTime()){
+    let dateDate = new Date();
+    this.mAnten.fecha_entrega = dateDate.getTime();
     console.log(this.mAnten)
     this.crud.save(`${this.base}${url}`, this.mAnten, tipo).subscribe(response => {
       this.getAplicaciones();
       this.cancelar();
-      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro sd se guardó correctamente.</b>", "")
+      this.msj.mostrarAlertaMessage("<b>Información</b>", "<b>El registro se guardó correctamente.</b>", "")
     }, error => {
       this.msj.mostrarAlertaError("<b>Error</b>", "<b>Se detectó un problema en la respuesta del servicio.</b>", "")
       this.cargando = false;
     })
-    // }
-    // else
-    // this.msj.mostrarAlertaError("<b>Error</b>", "<b>La fecha debe ser mayor a la inicial</b>", "")
-    // this.cargando = false;
   }
-
   open() {
     this.modal.show();
   }
@@ -189,7 +182,6 @@ export class MantenimientoComponent implements OnInit {
     this.mAnten = Object.assign({}, mantenimiento)
     this.modal.show();
   }
-
   cancelar() {
     this.mAnten = Object.assign({}, new Mantenimiento());
     $('#frmMantenimiento').bootstrapValidator('resetForm', true);
@@ -207,7 +199,6 @@ export class MantenimientoComponent implements OnInit {
   }
   getCast(id) {
     if (id) {
-      // console.log(new Date(+id));
       return new Date(+id);
     }
 
@@ -222,41 +213,6 @@ export class MantenimientoComponent implements OnInit {
       },
       fields: Mantenimiento.getValidators()
     };
-  }
-
-  public setFecha(e) {
-    $("#fecha").val(e).trigger('input');
-    this.fecha = e;
-  }
-  public setHora(e) {
-    $("#hora").val(e).trigger('input');
-    this.hora = e;
-  }
-  public setFechas(e) {
-    $("#fechas").val(e).trigger('input');
-    this.fechas = e;
-
-  }
-  public setHoras(e) {
-    $("#horas").val(e).trigger('input');
-    this.horas = e;
-  }
-
-
-  public Fechaentrada(fecha: string, hora: string) {
-
-    if (fecha && hora)
-      return moment(`${fecha} ${hora}`, 'DD/MM/yyyy HH:mm').toDate()
-    else if (fecha)
-      return moment(fecha, 'DD/MM/yyyy').toDate();
-    return null;
-  }
-  public Fechasalida(fechas: string, horas: string) {
-    if (fechas && horas)
-      return moment(`${fechas} ${horas}`, 'DD/MM/yyyy HH:mm').toDate();
-    else if (fechas)
-      return moment(fechas, 'DD/MM/yyyy').toDate();
-    return null;
   }
 
 

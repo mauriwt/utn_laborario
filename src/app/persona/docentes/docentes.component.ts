@@ -14,7 +14,7 @@ export class DocentesComponent implements OnInit {
   @ViewChild('mddOcente') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: Docentes;
+  public parametros: Docentes[];
   public dOcente: Docentes;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
@@ -36,15 +36,28 @@ export class DocentesComponent implements OnInit {
     })
   }
 
+  
   saveValidar(valid) {
     if (!valid) return;
+    let ress = this.parametros.find(dat => dat.documento_doc === this.dOcente.documento_doc);
+    // Res es utilizado para el update 
+    let res = this.parametros.find(dat => dat.id_docente === this.dOcente.id_docente && dat.documento_doc === this.dOcente.documento_doc);
     if (this.dOcente.id_docente) {
-      this.save("update", `${config.APIRest.docentes.update}/${this.dOcente.id_docente}`);
+      if (!res) {
+        this.save("update", `${config.APIRest.docentes.update}/${this.dOcente.id_docente}`);
+
+      } else {
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>", "")
+      }
     } else {
-      this.save("insert",config.APIRest.docentes.add);
+      if (!ress) {
+        this.save("insert",config.APIRest.docentes.add);
+    } else {
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>", "")
+      }
+
     }
   }
-
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();

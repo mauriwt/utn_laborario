@@ -17,7 +17,7 @@ export class AdministrativoComponent implements OnInit {
 
 
   public cargando: boolean;
-  public parametros: Administrativo;
+  public parametros: Administrativo[];
    private base = config.APIRest.url;
    public Admint: Administrativo;
   
@@ -42,13 +42,22 @@ export class AdministrativoComponent implements OnInit {
 
  saveValidar(valid) {
    if (!valid) return;
+   let ress = this.parametros.find(dat => dat.documento_adm === this.Admint.documento_adm);
+   // Res es utilizado para el update 
+   let res = this.parametros.find(dat => dat.documento_adm===this.Admint.documento_adm&& dat.id_administrativo === this.Admint.id_administrativo);
+   
    if (this.Admint.id_administrativo) {
+     if(!res){
      this.save("update", `${config.APIRest.admin.update}/${this.Admint.id_administrativo}`);
-   } else {
-     this.save("insert",config.APIRest.admin.add);
+   
+    }else{
+      this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+        }
+    } else {if(!ress){
+     this.save("insert",config.APIRest.admin.add);this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+    }
    }
  }
-
  save(tipo, url) {
    this.cargando = true;
    this.modal.hide();

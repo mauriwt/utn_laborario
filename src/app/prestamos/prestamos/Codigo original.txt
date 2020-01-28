@@ -1,4 +1,9 @@
-<div id="content">
+
+
+
+
+
+{<div id="content">
   <wt-shuyai *ngIf="cargando || conectar"></wt-shuyai>
   <sa-widgets-grid>
     <div class="row">
@@ -104,45 +109,9 @@
                   </fieldset>
 
 
-                  <fieldset>
-                    <label for="">Ingrese Su cedula para realizar prestamo:</label>
-                    <div class="">
-                      <input class="typeahead" name="typeestudiante" 
-                      [value]="selected" [typeahead]="personas"
-                    
-                        typeaheadOptionField="documento" 
-                        (typeaheadNoResults)="typeaheadNoResults($event)"
-                        
-                        class="form-control">{{datospersona(selected)}}
-                        
-                      <pre type="input" name="evalu"  [(ngModel)]="regPrestamo.id_documento">{{datospersona(selected)}}</pre>
-                      <div class="alert alert-danger" *ngIf="noResult">No Se Encuentra Registrado
-                      </div>
-                    </div>
+                
 
-                  </fieldset>
-
-                  <fieldset>
-
-                    <div class="form-group">
-                      <label class="col-lg-4"><b>Fecha de prestamo:<label class="text-danger"></label></b>
-                      </label>
-                      <div class="col-lg-8">
-                        <div class="input-group">
-                          <input id="fecha" type="text" placeholder="{{curDate | date:'yyyy-MM-dd'}}"
-                            class="form-control datepicker disabled" (valueUpdated)="setFecha($event)" name="fecha"
-                            [value]="regPrestamo.hora_inicio_hrapr | date: 'dd/MM/yyyy'" icon="true" required
-                            [saUiDatepicker]="{
-                                    dateFormat: 'dd/mm/yy'}" notActualDate="true">
-                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                          <input class="form-control disabled clockpicker" smartClockpicker type="text"
-                            (valueUpdated)="setHora($event)" [value]="regPrestamo.hora_inicio_hrapr | date: 'HH:mm'"
-                            placeholder="Hora" name="hora" icon="true" required>
-                          <span class="input-group-addon time"><i class="fa fa-clock-o"></i></span>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
+                 
                   <fieldset>
                     <div class="form-actions">
                       <div class="pull-left">
@@ -280,4 +249,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>}

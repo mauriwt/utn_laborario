@@ -19,7 +19,7 @@ export class CatActivosComponent implements OnInit {
 
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: CatActivos;
+  public parametros: CatActivos[];
   public catActivo: CatActivos;
 
   fecha: string;
@@ -49,12 +49,18 @@ export class CatActivosComponent implements OnInit {
 
   saveValidar(valid) {
     if (!valid) return;
+    let res= this.parametros.find(dat => dat.nombre === this.catActivo.nombre);
+ 
     if (this.catActivo.id_categoria) {
+
       this.save("update", `${config.APIRest.catactivos.update}/${this.catActivo.id_categoria}`);
     }
     else {
+      if(!res){
       this.save("insert", config.APIRest.catactivos.add);
     }
+    else { this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en Uso</b>", "")
+  }}
   }
 
 

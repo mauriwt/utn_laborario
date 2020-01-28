@@ -15,7 +15,7 @@ export class OrdenadorComponent implements OnInit {
   @ViewChild('mdoRdenador') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: Ordenador;
+  public parametros: Ordenador[];
   public oRdenador: Ordenador;
   public marca: MarcaOrdenador;
   data: any;
@@ -60,10 +60,21 @@ export class OrdenadorComponent implements OnInit {
 
   saveValidar(valid) {
     if (!valid) return;
-    if (this.oRdenador.id_pc) {
-      this.save("update", `${config.APIRest.ordenador.update}/${this.oRdenador.id_pc}`);
-    } else {
-      this.save("insert",config.APIRest.Ordenador.add);
+    let ress = this.parametros.find(dat => dat.seriecpu === this.oRdenador.seriecpu);
+    // Res es utilizado para el update 
+    let res = this.parametros.find(dat => dat.id_pc===this.oRdenador.id_pc && dat.seriecpu === this.oRdenador.seriecpu);
+     if (this.oRdenador.id_pc) {
+      if(!res){
+        this.save("update", `${config.APIRest.ordenador.update}/${this.oRdenador.id_pc}`);
+      
+      }else{
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+          }
+    } else {if(!ress){
+      this.save("insert",config.APIRest.Ordenador.add); } else{
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+          }
+     
     }
   }
 

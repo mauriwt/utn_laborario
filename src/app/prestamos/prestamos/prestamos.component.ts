@@ -25,6 +25,8 @@ export class PrestamosComponent implements OnInit {
   public regPrestamo: RegPrestamo;
   public activo: Activos[];
   public personas: Personas[];
+  
+  public personas_p: Personas;
   public espacios: Espacios[];
   public docente: Docentes[];
   
@@ -135,7 +137,7 @@ export class PrestamosComponent implements OnInit {
         this.noResult = event;
       }
        
-      /*** Cierrre de metodos de typehead */
+      /*** Cierrre de metodos de typeahead */
 
 
     getNespacios(idEspacio): string{
@@ -152,9 +154,7 @@ export class PrestamosComponent implements OnInit {
     else return " ";
       }
 
-  curDate=new Date();
-
-  getAplicaciones() {
+   getAplicaciones() {
     this.cargando = true;
     this.crud.obtener(`${this.base}${config.APIRest.registroprestamo.list}`).subscribe(response => {
       this.parametros = response;
@@ -166,7 +166,10 @@ export class PrestamosComponent implements OnInit {
   }
 
   saveValidar(valid) {
+    let auxced
     if (!valid) return;
+ 
+
     if (this.regPrestamo.id_regpres) {
       this.save("update", `${config.APIRest.registroprestamo.update}/${this.regPrestamo.id_regpres}`);
     } else {
@@ -178,7 +181,7 @@ export class PrestamosComponent implements OnInit {
     this.modale.hide();
     let fe = new Date(this.convertirFecha(this.fecha, this.hora))
     this.regPrestamo.hora_inicio_hrapr = fe.getTime();
-     // console.log(this.regPrestamo)
+     console.log(this.regPrestamo)
       this.crud.save(`${this.base}${url}`, this.regPrestamo, tipo).subscribe(response => {
         this.getAplicaciones();
         this.cancelar();
@@ -241,6 +244,7 @@ export class PrestamosComponent implements OnInit {
     $("#hora").val(e).trigger('input');
     this.hora = e;
   }
+  
 
   public convertirFecha(fecha: string, hora: string) {
     if (fecha && hora)
@@ -254,3 +258,15 @@ export class PrestamosComponent implements OnInit {
  
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

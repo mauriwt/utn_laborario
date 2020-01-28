@@ -14,7 +14,7 @@ export class EstudiantesComponent implements OnInit {
   @ViewChild('mdpErsona') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: Personas;
+  public parametros: Personas[];
   public pErsona: Personas;
 
   constructor(private crud: CRUDService, private router: Router, private aroute: ActivatedRoute,
@@ -36,15 +36,25 @@ export class EstudiantesComponent implements OnInit {
     })
   }
 
-  saveValidar(valid) {
+  eValidar(valid) {
     if (!valid) return;
+    let ress = this.parametros.find(dat => dat.documento === this.pErsona.documento);
+    // Res es utilizado para el update 
+    let res = this.parametros.find(dat => dat.id_persona===this.pErsona.id_persona && dat.documento === this.pErsona.documento);
     if (this.pErsona.id_persona) {
-      this.save("update", `${config.APIRest.personas.update}/${this.pErsona.id_persona}`);
-    } else {
+      if(!res){
+        this.save("update", `${config.APIRest.personas.update}/${this.pErsona.id_persona}`);
+  
+      }else{
+        this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+          }
+    } else {if(!ress){
       this.save("insert",config.APIRest.personas.add);
+    this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en uso.</b>","")
+          }
+     
     }
   }
-
   save(tipo, url) {
     this.cargando = true;
     this.modal.hide();

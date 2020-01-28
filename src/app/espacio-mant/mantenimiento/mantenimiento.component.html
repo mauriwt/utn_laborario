@@ -75,24 +75,7 @@
                   <!----->
                   <div class=" col-xs-12">
                       <fieldset>
-                        <div class="form-group">
-                          <label class="col-lg-4"><b>Fecha Ingreso mantenimiento:<label class="text-danger"></label></b>
-                          </label>
-                          <div class="col-lg-8">
-                            <div class="input-group">
-                              <input id="fecha" type="text" placeholder="Fecha" class="form-control datepicker disabled" (valueUpdated)="setFecha($event)"
-                                name="fecha" [value]="mAnten.fecha_ingreso | date: 'dd/MM/yyyy'" icon="true" required [saUiDatepicker]="{
-                                          dateFormat: 'dd/mm/yy'}" notActualDate="true">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <input class="form-control disabled clockpicker" smartClockpicker type="text" (valueUpdated)="setHora($event)" [value]="mAnten.fecha_ingreso | date: 'HH:mm'"
-                                  placeholder="Hora" name="hora" icon="true" required>
-                                  <span class="input-group-addon time"><i class="fa fa-clock-o"></i></span>
-                           <script>
-                           
-                           </script>
-                                </div>
-                          </div>
-                        </div>
+                        
                       </fieldset>
                     </div>
                   <!---->
@@ -154,25 +137,7 @@
                     <!----->
                     <div class=" col-xs-12">
                         <fieldset>
-                          <div class="form-group">
-                            <label class="col-lg-4"><b>Fecha Entrega:<label class="text-danger"></label></b>
-                            </label>
-                            
-                            <div class="col-lg-8">
-                              <div class="input-group">
-                                <input id="fechas" type="text" placeholder="Fecha" class="form-control datepicker disabled" (valueUpdated)="setFechas($event)"
-                                  name="fechas" [value]="mAnten.fecha_entrega | date: 'dd/MM/yyyy'" icon="true" required [saUiDatepicker]="{
-                                            dateFormat: 'dd/mm/yy'}" notActualDate="true">
-                                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                  <input class="form-control disabled clockpicker" smartClockpicker type="text" (valueUpdated)="setHoras($event)" [value]="mAnten.fecha_entrega | date: 'HH:mm'"
-                                    placeholder="Hora" name="horas" icon="true" required>
-                                    <span class="input-group-addon time"><i class="fa fa-clock-o"></i></span>
-                             <script>
-                             </script>
-                                  </div>
-                            </div>
-
-                          </div>
+                         
                         </fieldset>
                       </div>
                     <!---->

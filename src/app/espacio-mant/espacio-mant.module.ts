@@ -9,13 +9,16 @@ import { ObservableNodeService, CRUDService, AlertasService } from 'app/provider
 import { SmartadminModule } from 'app/shared/smartadmin.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { TypeaheadModule } from 'ngx-bootstrap';
 @NgModule({
   imports: [
     CommonModule,
     espaciosRouting,
     FormsModule,
     ReactiveFormsModule,
-    SmartadminModule
+    SmartadminModule,
+    
+    TypeaheadModule.forRoot(),
   ],
   declarations: [MantenimientoComponent, TipoMantenimientoComponent, TipoEspacioComponent, EspacioComponent],
   providers: [ObservableNodeService, CRUDService, AlertasService]

@@ -15,7 +15,7 @@ export class EspacioComponent implements OnInit {
   @ViewChild('mdeSpacios') modal: any;
   public cargando: boolean;
   private base = config.APIRest.url;
-  public parametros: Espacios;
+  public parametros: Espacios[];
   public eSpacios: Espacios;
   
   public tipoprt: TipoEspacio[];
@@ -52,11 +52,16 @@ export class EspacioComponent implements OnInit {
 
   saveValidar(valid) {
     if (!valid) return;
+    let ress = this.parametros.find(dat => dat.nombre === this.eSpacios.nombre);
     if (this.eSpacios.id_ubicacion_esp) {
       this.save("update", `${config.APIRest.espacios.update}/${this.eSpacios.id_ubicacion_esp}`);
     } else {
+      if(!ress)
       this.save("insert",config.APIRest.espacios.add);
+    
+    else { this.msj.mostrarAlertaError("<b>Error</b>", "<b>El nombre ya esta en Uso</b>", "")
     }
+  }
   }
 
   save(tipo, url) {
